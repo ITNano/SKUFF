@@ -5,4 +5,25 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <string-array name="nav_drawer_items">
+        <item>Nyheter</item>
+        <item>Kalender</item>
+        <item>Grupper</item>
+        <item>Tävling</item>
+        <item>Arbetsgrupp</item>
+        <item>Tipsa oss</item>
+        <item>Kontakt</item>
+    </string-array>
+    
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_news</item>
+        <item>@drawable/ic_calender</item>
+        <item>@drawable/ic_groups</item>
+        <item>@drawable/ic_contest</item>
+        <item>@drawable/ic_sag</item>
+        <item>@drawable/ic_tip</item>
+        <item>@drawable/ic_contact</item>
+    </array>
+    
+    <string name="desc_list_item_icon">Meny-ikon</string>
 </resources>
