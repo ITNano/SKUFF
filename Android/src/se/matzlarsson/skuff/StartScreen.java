@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import se.matzlarsson.skuff.nav.NavDrawerItem;
 import se.matzlarsson.skuff.nav.NavDrawerListAdapter;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -41,15 +43,14 @@ public class StartScreen extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_screen);
- 
+        
         mTitle = mDrawerTitle = getTitle();
  
         // load slide menu items
         navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
  
         // nav drawer icons from resources
-        navMenuIcons = getResources()
-                .obtainTypedArray(R.array.nav_drawer_icons);
+        navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
  
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
@@ -128,6 +129,7 @@ public class StartScreen extends ActionBarActivity {
         // if nav drawer is opened, hide the action items
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+        setTitle(mTitle);
         return super.onPrepareOptionsMenu(menu);
     }
  
@@ -136,7 +138,11 @@ public class StartScreen extends ActionBarActivity {
         mTitle = title;
         getSupportActionBar().setTitle(mTitle);
     }
- 
+    
+    public void setIcon(int resourceIndex) {
+        getSupportActionBar().setIcon(resourceIndex);
+    }
+
     /**
      * When using the ActionBarDrawerToggle, you must call it during
      * onPostCreate() and onConfigurationChanged()...
@@ -156,6 +162,37 @@ public class StartScreen extends ActionBarActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
     
+    
+    public void spam(CharSequence ch){
+
+    	AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+    
+	// set title
+	alertDialogBuilder.setTitle("Index");
+
+	// set dialog message
+	alertDialogBuilder.setMessage(ch)
+		.setCancelable(false)
+		.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog,int id) {
+				// if this button is clicked, close
+				// current activity
+			}
+		  })
+		.setNegativeButton("No",new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog,int id) {
+				// if this button is clicked, just close
+				// the dialog box and do nothing
+				dialog.cancel();
+			}
+		});
+
+		// create alert dialog
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		// show it
+		alertDialog.show();
+    }
     
     
     /**
@@ -208,6 +245,9 @@ public class StartScreen extends ActionBarActivity {
             mDrawerList.setItemChecked(position, true);
             mDrawerList.setSelection(position);
             setTitle(navMenuTitles[position]);
+            navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
+            setIcon(navMenuIcons.getResourceId(position, -1));
+            navMenuIcons.recycle();
             mDrawerLayout.closeDrawer(mDrawerList);
         } else {
             Log.e("StartScreen", "Error in creating fragment");
