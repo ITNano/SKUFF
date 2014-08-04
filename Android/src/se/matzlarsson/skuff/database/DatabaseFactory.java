@@ -4,19 +4,24 @@ public class DatabaseFactory {
 	
 	private static DBTable[] tables;
 
+	public static final String TABLE_UPDATES = "updates";
 	public static final String TABLE_NEWS = "news";
 	public static final String TABLE_USERS = "users";
 
 	private static void initiateTables(){
-		tables = new DBTable[2];
-		tables[0] = new DBTable("news");
+		tables = new DBTable[3];
+		tables[0] = new DBTable("updates");
 		tables[0].addValue(new DBValue("_id", DBValue.DATATYPE_INT, true, true));
-		tables[0].addValue(new DBValue("uid", DBValue.DATATYPE_INT));
-		tables[0].addValue(new DBValue("header", DBValue.DATATYPE_TEXT));
-		tables[0].addValue(new DBValue("content", DBValue.DATATYPE_TEXT));
+		tables[0].addValue(new DBValue("time", DBValue.DATATYPE_TEXT));
 		tables[1] = new DBTable("users");
 		tables[1].addValue(new DBValue("_id", DBValue.DATATYPE_INT, true, true));
 		tables[1].addValue(new DBValue("name", DBValue.DATATYPE_TEXT));
+		tables[2] = new DBTable("news");
+		tables[2].addValue(new DBValue("_id", DBValue.DATATYPE_INT, true, true));
+		tables[2].addValue(new DBValue("uid", DBValue.DATATYPE_INT));
+		tables[2].addValue(new DBValue("header", DBValue.DATATYPE_TEXT));
+		tables[2].addValue(new DBValue("content", DBValue.DATATYPE_TEXT));
+		tables[2].addValue(new DBValue("time", DBValue.DATATYPE_TEXT));
 	}
 	
 	public static DBTable[] getTables(){

@@ -7,22 +7,34 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	private static DatabaseHelper instance = null;
 	
+	private static Context context = null;
 	private static String dbName = "appdata.db";
-	private static int version = 1;
+	private static int version = 3;
 
-	private DatabaseHelper(Context context) {
+	private DatabaseHelper() {
 		super(context, dbName, null, version);
 	}
 	
-	public static DatabaseHelper getInstance(Context context){
+	public static void start(Context context){
+		DatabaseHelper.context = context;
+	}
+	
+	public static void stop(){
+		DatabaseHelper.context = null;
+	}
+	
+	public static boolean isStarted(){
+		return context != null;
+	}
+	
+	public static DatabaseHelper getInstance(){
 		if(instance == null){
-			instance = new DatabaseHelper(context);
+			instance = new DatabaseHelper();
 		}
 		
 		return instance;
@@ -39,7 +51,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		DBTable[] table = DatabaseFactory.getTables();
-    	Log.d("SKUFF", "Removing all");
 		for(int i = 0; i<table.length; i++){
 			removeTable(db, table[i]);
 		}
@@ -64,6 +75,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public void insertQuery(DBTable table, String[] values){
 		SQLiteDatabase db = this.getWritableDatabase();
 		String query = "INSERT INTO "+table.getName()+"(";
+		String val = "VALUES(";
+		List<DBValue> dbValues = table.getValues();
+		for(int i = 0; i<dbValues.size(); i++){
+			query += (i>0?",":"")+(dbValues.get(i).isPrimary()?"rowid":dbValues.get(i).getName());
+			val += (i>0?",":"")+dbValues.get(i).format(values[i]);
+		}
+		query += ") "+val+")";
+		db.execSQL(query);
+	}
+	
+	public void insertOrUpdateQuery(DBTable table, String[] values){
+		SQLiteDatabase db = this.getWritableDatabase();
+		String query = "INSERT OR REPLACE INTO "+table.getName()+"(";
 		String val = "VALUES(";
 		List<DBValue> dbValues = table.getValues();
 		for(int i = 0; i<dbValues.size(); i++){
@@ -101,7 +125,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	public Cursor selectQuery(String query, String[] whereValues){
 		SQLiteDatabase db = this.getReadableDatabase();
-		return db.rawQuery(query, whereValues);
+		Cursor c = db.rawQuery(query, whereValues);
+		return c;
 	}
 
 }

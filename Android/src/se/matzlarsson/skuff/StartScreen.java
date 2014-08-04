@@ -2,10 +2,9 @@ package se.matzlarsson.skuff;
 
 import java.util.ArrayList;
 
+import se.matzlarsson.skuff.database.DatabaseHelper;
 import se.matzlarsson.skuff.nav.NavDrawerItem;
 import se.matzlarsson.skuff.nav.NavDrawerListAdapter;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -99,6 +98,7 @@ public class StartScreen extends ActionBarActivity {
         }
         
         mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
+        DatabaseHelper.start(this);
     }
  
     @Override
@@ -164,38 +164,6 @@ public class StartScreen extends ActionBarActivity {
     }
     
     
-    public void spam(CharSequence ch){
-
-    	AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-    
-	// set title
-	alertDialogBuilder.setTitle("Index");
-
-	// set dialog message
-	alertDialogBuilder.setMessage(ch)
-		.setCancelable(false)
-		.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog,int id) {
-				// if this button is clicked, close
-				// current activity
-			}
-		  })
-		.setNegativeButton("No",new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog,int id) {
-				// if this button is clicked, just close
-				// the dialog box and do nothing
-				dialog.cancel();
-			}
-		});
-
-		// create alert dialog
-		AlertDialog alertDialog = alertDialogBuilder.create();
-
-		// show it
-		alertDialog.show();
-    }
-    
-    
     /**
      * Slide menu item click listener
      * */
@@ -239,9 +207,12 @@ public class StartScreen extends ActionBarActivity {
         }
  
         if (fragment != null) {
+            if(fragment instanceof Refreshable){
+            	((Refreshable)fragment).refresh();
+            }
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
- 
+            fragmentManager.beginTransaction().replace(R.id.frame_container, fragment, "currentFragment").commit();
+            
             // update selected item and title, then close the drawer
             mDrawerList.setItemChecked(position, true);
             mDrawerList.setSelection(position);

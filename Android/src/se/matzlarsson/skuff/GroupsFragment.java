@@ -6,10 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
  
-public class GroupsFragment extends Fragment {
+public class GroupsFragment extends Fragment implements Refreshable {
      
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     	return inflater.inflate(R.layout.fragment_groups, container, false);
     }
+
+	@Override
+	public void refresh() {
+		// TODO Auto-generated method stub
+		
+	}
 }

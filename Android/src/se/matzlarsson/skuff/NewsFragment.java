@@ -1,18 +1,20 @@
 package se.matzlarsson.skuff;
 
+import se.matzlarsson.skuff.database.DataSyncer;
 import se.matzlarsson.skuff.database.DatabaseFactory;
 import se.matzlarsson.skuff.database.DatabaseHelper;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
  
-public class NewsFragment extends Fragment {
+public class NewsFragment extends Fragment implements Refreshable{
      
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,23 +32,19 @@ public class NewsFragment extends Fragment {
 		   	button.setOnClickListener(new OnClickListener(){
 		   		@Override
 		   		public void onClick(View view){
-		   			dbStuff();
+		   			DataSyncer syncer = DataSyncer.getInstance((ActionBarActivity)getActivity());
+		   			syncer.execute();
 		   		}
 		   	});
 	    }
     }
-    
-    public void dbStuff(){
-    	Log.d("SKUFF", "DbStuff here, just checking");
-    	DatabaseHelper db = DatabaseHelper.getInstance(getActivity());
-        Cursor c1 = db.selectQuery("SELECT _id,name FROM users", null);
-    	Log.d("SKUFF", "Has "+c1.getCount()+" rows");
-    	
-    	db.insertQuery(DatabaseFactory.getTable("users"), new String[]{"NULL", "Matz"});
-    	db.updateQuery(DatabaseFactory.getTable("users"), new int[]{1}, new String[]{"Nano"}, new int[]{1}, new String[]{"Matz"});
-        
-        Cursor c2 = db.selectQuery("SELECT _id,name FROM users", null);
-        c2.moveToFirst();
-    	Log.d("SKUFF", "Now has name "+c2.getString(1));
-    }
+
+	@Override
+	public void refresh() {
+		if(DatabaseHelper.isStarted()){
+			DatabaseHelper db = DatabaseHelper.getInstance();
+			Cursor c = db.selectQuery("SELECT * FROM "+DatabaseFactory.TABLE_NEWS, null);
+			Toast.makeText(getActivity(), "Found "+c.getCount()+" news", Toast.LENGTH_SHORT).show();
+		}
+	}
 }
