@@ -12,9 +12,9 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import se.matzlarsson.skuff.Refreshable;
 import se.matzlarsson.skuff.database.data.Result;
 import se.matzlarsson.skuff.database.data.ResultDeserializer;
+import se.matzlarsson.skuff.ui.Refreshable;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;

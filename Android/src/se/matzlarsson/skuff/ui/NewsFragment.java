@@ -1,5 +1,8 @@
-package se.matzlarsson.skuff;
+package se.matzlarsson.skuff.ui;
 
+import se.matzlarsson.skuff.R;
+import se.matzlarsson.skuff.R.id;
+import se.matzlarsson.skuff.R.layout;
 import se.matzlarsson.skuff.database.DataSyncer;
 import se.matzlarsson.skuff.database.DatabaseFactory;
 import se.matzlarsson.skuff.database.DatabaseHelper;

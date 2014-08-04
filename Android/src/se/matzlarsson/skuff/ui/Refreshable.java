@@ -1,4 +1,4 @@
-package se.matzlarsson.skuff;
+package se.matzlarsson.skuff.ui;
 
 public interface Refreshable {
 

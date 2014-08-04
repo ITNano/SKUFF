@@ -1,7 +1,14 @@
-package se.matzlarsson.skuff;
+package se.matzlarsson.skuff.ui;
 
 import java.util.ArrayList;
 
+import se.matzlarsson.skuff.R;
+import se.matzlarsson.skuff.R.array;
+import se.matzlarsson.skuff.R.drawable;
+import se.matzlarsson.skuff.R.id;
+import se.matzlarsson.skuff.R.layout;
+import se.matzlarsson.skuff.R.menu;
+import se.matzlarsson.skuff.R.string;
 import se.matzlarsson.skuff.database.DatabaseHelper;
 import se.matzlarsson.skuff.nav.NavDrawerItem;
 import se.matzlarsson.skuff.nav.NavDrawerListAdapter;
