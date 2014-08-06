@@ -11,6 +11,7 @@ public class News {
 	
 	private int id;
 	private int userID;
+	private String user;
 	private String header;
 	private String content;
 	private Date time;
@@ -18,6 +19,7 @@ public class News {
 	public News(){
 		setId(-1);
 		setUserID(-1);
+		setUser("");
 		setHeader("");
 		setContent("");
 		setTime("1970-01-01 00:00:00");
@@ -29,11 +31,18 @@ public class News {
 		setHeader(cursor.getString(cursor.getColumnIndex("header")));
 		setContent(cursor.getString(cursor.getColumnIndex("content")));
 		setTime(cursor.getString(cursor.getColumnIndex("time")));
+		
+		if(cursor.getColumnIndex("username")>=0){
+			setUser(cursor.getString(cursor.getColumnIndex("username")));
+		}else{
+			setUser("[User"+cursor.getInt(cursor.getColumnIndex("uid"))+"]");
+		}
 	}
 	
 	public News(int id, int userID, String header, String content, String timeString) {
 		setId(id);
 		setUserID(userID);
+		setUser("[User"+userID+"]");
 		setHeader(header);
 		setContent(content);
 		setTime(timeString);
@@ -55,12 +64,20 @@ public class News {
 		this.userID = userID;
 	}
 
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
 	public String getHeader() {
 		return header;
 	}
 
 	public void setHeader(String header) {
-		this.header = header;
+		this.header = StringUtil.swedify(header);
 	}
 
 	public String getContent() {
@@ -68,7 +85,7 @@ public class News {
 	}
 
 	public void setContent(String content) {
-		this.content = content;
+		this.content = StringUtil.swedify(content);
 	}
 
 	public Date getTime() {

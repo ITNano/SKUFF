@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/newspost_background">
+    
+    <TextView android:id="@+id/news_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+    />
+    
+    <TextView
+        android:id="@+id/news_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="2dp"
+        android:textColor="@color/news_header_color"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:background="@color/transparent"
+    />
+     
+    <TextView android:id="@+id/news_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/news_header"
+        android:paddingLeft="10dp"
+        android:textSize="15sp"
+        android:textColor="@color/news_content_color"
+        android:background="@color/transparent"
+    />
+    
+    <TextView android:id="@+id/news_read_more"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/news_content"
+        android:paddingLeft="10dp"
+        android:paddingTop="1dp"
+        android:textColor="@color/news_read_more_color"
+        android:text="@string/read_more"
+    />
+    
+    <TextView android:id="@+id/news_additional_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/news_read_more"
+        android:paddingLeft="10dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="10dp"
+        android:textSize="12sp"
+        android:textColor="@color/news_info_color"
+        android:background="@color/transparent"
+    />
+ 
+</RelativeLayout>

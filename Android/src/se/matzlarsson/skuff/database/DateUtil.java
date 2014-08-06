@@ -13,6 +13,14 @@ public class DateUtil {
 		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.GERMANY).format(date);
 	}
 	
+	public static String dateToUIString(Date date){
+		String[] months = {"Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"};
+		String dateString = new SimpleDateFormat("d", Locale.GERMANY).format(date);
+		dateString += " "+months[date.getMonth()]+" ";
+		dateString += new SimpleDateFormat("HH:mm", Locale.GERMANY).format(date);
+		return dateString;
+	}
+	
 	public static Date stringToDate(String s){
 		try {
 			return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.GERMANY).parse(s);

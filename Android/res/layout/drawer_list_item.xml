@@ -5,7 +5,7 @@
     android:background="@drawable/list_selector">
  
     <ImageView
-        android:id="@+id/icon"
+        android:id="@+id/menuitem_icon"
         android:layout_width="25dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -16,17 +16,17 @@
         android:layout_centerVertical="true" />
  
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/menuitem_title"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_toRightOf="@id/icon"
+        android:layout_toRightOf="@id/menuitem_icon"
         android:textColor="@color/list_item_title"
         android:textSize="16sp"
         android:layout_gravity="center_vertical"
         android:paddingRight="40dp"
         android:paddingTop="13dp"/>
      
-    <TextView android:id="@+id/counter"
+    <TextView android:id="@+id/menuitem_counter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/counter_bg"

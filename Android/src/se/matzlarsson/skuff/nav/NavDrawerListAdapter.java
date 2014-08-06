@@ -46,9 +46,9 @@ public class NavDrawerListAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.drawer_list_item, null);
         }
           
-        ImageView imgIcon = (ImageView) convertView.findViewById(R.id.icon);
-        TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
-        TextView txtCount = (TextView) convertView.findViewById(R.id.counter);
+        ImageView imgIcon = (ImageView) convertView.findViewById(R.id.menuitem_icon);
+        TextView txtTitle = (TextView) convertView.findViewById(R.id.menuitem_title);
+        TextView txtCount = (TextView) convertView.findViewById(R.id.menuitem_counter);
           
         imgIcon.setImageResource(navDrawerItems.get(position).getIcon());       
         txtTitle.setText(navDrawerItems.get(position).getTitle());

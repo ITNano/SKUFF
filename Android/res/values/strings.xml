@@ -4,6 +4,12 @@
     <string name="app_name">SKUFF</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="back_button">Tillbaka</string>
+    <string name="read_more">Läs mer</string>
+    <string name="icon_description">Ikon</string>
+    
+    <string name="news_info_pre">Skapad</string>
+    <string name="news_info_post">av</string>
 
     <string-array name="nav_drawer_items">
         <item>Nyheter</item>

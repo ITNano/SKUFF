@@ -18,6 +18,15 @@
         android:src="@drawable/ic_tip"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtLabel"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="73dp"
+        android:text="Start DB" />
      
  
 </RelativeLayout>

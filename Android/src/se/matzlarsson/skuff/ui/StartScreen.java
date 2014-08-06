@@ -3,15 +3,10 @@ package se.matzlarsson.skuff.ui;
 import java.util.ArrayList;
 
 import se.matzlarsson.skuff.R;
-import se.matzlarsson.skuff.R.array;
-import se.matzlarsson.skuff.R.drawable;
-import se.matzlarsson.skuff.R.id;
-import se.matzlarsson.skuff.R.layout;
-import se.matzlarsson.skuff.R.menu;
-import se.matzlarsson.skuff.R.string;
 import se.matzlarsson.skuff.database.DatabaseHelper;
 import se.matzlarsson.skuff.nav.NavDrawerItem;
 import se.matzlarsson.skuff.nav.NavDrawerListAdapter;
+import se.matzlarsson.skuff.ui.news.NewsFragment;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -26,11 +21,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
-public class StartScreen extends ActionBarActivity {
+public class StartScreen extends ActionBarActivity implements FragmentDisplayer{
+
+	public static final String FRAGMENT_NEWS = "news";
+	public static final String FRAGMENT_CALENDER = "calender";
+	public static final String FRAGMENT_GROUPS = "groups";
+	public static final String FRAGMENT_CONTEST = "contest";
+	public static final String FRAGMENT_SAG = "sag";
+	public static final String FRAGMENT_TIP = "tip";
+	public static final String FRAGMENT_CONTACT = "contact";
+	
 	private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
+    
+    //The fragments
+    private Fragment[] fragments;
+    private String[] fragmentNames;
  
     // nav drawer title
     private CharSequence mDrawerTitle;
@@ -48,31 +57,39 @@ public class StartScreen extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DatabaseHelper.start(this);
+        
+        fragments = new Fragment[7];
+        fragmentNames = new String[7];
+        fragments[0] = new NewsFragment(this);
+        fragmentNames[0] = FRAGMENT_NEWS;
+        fragments[1] = new CalenderFragment();
+        fragmentNames[1] = FRAGMENT_CALENDER;
+        fragments[2] = new GroupsFragment();
+        fragmentNames[2] = FRAGMENT_GROUPS;
+        fragments[3] = new ContestFragment();
+        fragmentNames[3] = FRAGMENT_CONTEST;
+        fragments[4] = new SagFragment();
+        fragmentNames[4] = FRAGMENT_SAG;
+        fragments[5] = new TipFragment();
+        fragmentNames[5] = FRAGMENT_TIP;
+        fragments[6] = new ContactFragment();
+        fragmentNames[6] = FRAGMENT_CONTACT;
         
         setContentView(R.layout.activity_start_screen);
         
         mTitle = mDrawerTitle = getTitle();
  
-        // load slide menu items
         navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
- 
-        // nav drawer icons from resources
         navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
- 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
- 
         navDrawerItems = new ArrayList<NavDrawerItem>();
  
-        // adding nav drawer items to array
         for(int i = 0; i<navMenuTitles.length; i++){
             navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
         }
- 
-        // Recycle the typed array
         navMenuIcons.recycle();
- 
-        // setting the nav drawer list adapter
         adapter = new NavDrawerListAdapter(getApplicationContext(), navDrawerItems);
         mDrawerList.setAdapter(adapter);
  
@@ -105,7 +122,6 @@ public class StartScreen extends ActionBarActivity {
         }
         
         mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
-        DatabaseHelper.start(this);
     }
  
     @Override
@@ -181,38 +197,25 @@ public class StartScreen extends ActionBarActivity {
         }
     }
  
-     /**
-     * Diplaying fragment view for selected nav drawer list item
-     * */
+    
     private void displayView(int position) {
+    	// fix position to valid value
+    	position = Math.max(0, Math.min(fragments.length, position));
+    	
+        // update selected item and title, then close the drawer
+        mDrawerList.setItemChecked(position, true);
+        mDrawerList.setSelection(position);
+        setTitle(navMenuTitles[position]);
+        navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
+        setIcon(navMenuIcons.getResourceId(position, -1));
+        navMenuIcons.recycle();
+        mDrawerLayout.closeDrawer(mDrawerList);
+    	
         // update the main content by replacing fragments
-        Fragment fragment = null;
-        switch (position) {
-	        case 0:
-	            fragment = new NewsFragment();
-	            break;
-	        case 1:
-	            fragment = new CalenderFragment();
-	            break;
-	        case 2:
-	            fragment = new GroupsFragment();
-	            break;
-	        case 3:
-	            fragment = new ContestFragment();
-	            break;
-	        case 4:
-	            fragment = new SagFragment();
-	            break;
-	        case 5:
-	            fragment = new TipFragment();
-	            break;
-	        case 6:
-	            fragment = new ContactFragment();
-	            break;
-	        default:
-	            break;
-        }
+        displayFragment(fragments[position]);
+    }
  
+    public void displayFragment(Fragment fragment){
         if (fragment != null) {
             if(fragment instanceof Refreshable){
             	((Refreshable)fragment).refresh();
@@ -220,16 +223,19 @@ public class StartScreen extends ActionBarActivity {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.frame_container, fragment, "currentFragment").commit();
             
-            // update selected item and title, then close the drawer
-            mDrawerList.setItemChecked(position, true);
-            mDrawerList.setSelection(position);
-            setTitle(navMenuTitles[position]);
-            navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
-            setIcon(navMenuIcons.getResourceId(position, -1));
-            navMenuIcons.recycle();
-            mDrawerLayout.closeDrawer(mDrawerList);
         } else {
             Log.e("StartScreen", "Error in creating fragment");
         }
     }
+    
+	@Override
+	public void displayFragment(String s) {
+		for(int i = 0; i<fragmentNames.length; i++){
+			if(fragmentNames[i].equals(s)){
+				displayView(i);
+				return;
+			}
+		}
+		Toast.makeText(this, "Hittade inte den efterfrågade skärmen", Toast.LENGTH_SHORT).show();
+	}
 }

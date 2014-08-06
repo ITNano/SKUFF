@@ -1,7 +1,6 @@
 package se.matzlarsson.skuff.ui;
 
 import se.matzlarsson.skuff.R;
-import se.matzlarsson.skuff.R.layout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
