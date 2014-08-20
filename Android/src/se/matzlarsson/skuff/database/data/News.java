@@ -7,7 +7,7 @@ import se.matzlarsson.skuff.database.DatabaseHelper;
 import se.matzlarsson.skuff.database.DateUtil;
 import android.database.Cursor;
 
-public class News {
+public class News implements Saveable{
 	
 	private int id;
 	private int userID;
@@ -104,6 +104,7 @@ public class News {
 		this.time = time;
 	}
 	
+	@Override
 	public void saveToDb(DatabaseHelper db){
 		db.insertOrUpdateQuery(DatabaseFactory.getTable(DatabaseFactory.TABLE_NEWS), new String[]{getId()+"", getUserID()+"", getHeader(), getContent(), getTimeString()});
 	}

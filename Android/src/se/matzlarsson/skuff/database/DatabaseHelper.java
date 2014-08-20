@@ -14,10 +14,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	private static Context context = null;
 	private static String dbName = "appdata.db";
-	private static int version = 3;
 
 	private DatabaseHelper() {
-		super(context, dbName, null, version);
+		super(context, dbName, null, DatabaseFactory.getVersion());
 	}
 	
 	public static void start(Context context){
@@ -56,6 +55,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		}
 		
 		onCreate(db);
+	}
+	
+	@Override
+	public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion){
+		onUpgrade(db, oldVersion, newVersion);
 	}
 	
 	

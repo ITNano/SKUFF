@@ -24,8 +24,12 @@ public class DateUtil {
 	public static Date stringToDate(String s){
 		try {
 			return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.GERMANY).parse(s);
-		} catch (ParseException e) {
-			Log.w("SKUFF", "Invalid date");
+		} catch (ParseException pe1) {
+			try {
+				return new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY).parse(s);
+			}catch(ParseException pe2){
+				Log.w("SKUFF", "Invalid date ("+s+")");
+			}
 		}
 		
 		return null;

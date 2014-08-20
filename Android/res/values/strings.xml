@@ -10,6 +10,8 @@
     
     <string name="news_info_pre">Skapad</string>
     <string name="news_info_post">av</string>
+    
+    <string name="compulsory">Obligatorisk</string>
 
     <string-array name="nav_drawer_items">
         <item>Nyheter</item>

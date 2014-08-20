@@ -16,6 +16,9 @@ public class ResultDeserializer implements JsonDeserializer<Result>{
 		Result result = new Result();
 		result.setNews(new NewsDeserializer().deserialize(obj.get("news").getAsJsonArray(), type, context));
 		result.setUsers(new UserDeserializer().deserialize(obj.get("users").getAsJsonArray(), type, context));
+		result.setEvents(new EventDeserializer().deserialize(obj.get("events").getAsJsonArray(), type, context));
+		result.setEventProperties(new EventPropertyDeserializer().deserialize(obj.get("eventproperties").getAsJsonArray(), type, context));
+		result.setEventValues(new EventValueDeserializer().deserialize(obj.get("eventvalues").getAsJsonArray(), type, context));
 		
 		return result;
 	}

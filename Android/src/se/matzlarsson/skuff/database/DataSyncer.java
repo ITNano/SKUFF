@@ -133,7 +133,7 @@ public class DataSyncer extends AsyncTask<String, Void, Result>{
 	}
 	
 	public void loadedData(Result result){
-		Toast.makeText(this.activity, "Grabbed data ("+result.getNews().length+" news, "+result.getUsers().length+" users)", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this.activity, "Grabbed data ("+result.getUpdatesInfo()+")", Toast.LENGTH_SHORT).show();
 	}
 	
 	public void failedLoadingData(){
