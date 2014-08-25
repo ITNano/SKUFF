@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:orientation="horizontal" >
+    
+    <ImageView android:id="@+id/contact_image"
+        android:layout_width="82dp"
+        android:layout_height="82dp"
+        android:contentDescription="@string/contact_image"
+        android:src="@drawable/ic_default_contact"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="9dp"
+        android:layout_marginLeft="4dp"
+        android:background="@drawable/light_border" />
+    
+    <LinearLayout android:id="@+id/contact_info"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp" >
+        
+        <TextView android:id="@+id/contact_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:textColor="@color/black"
+            android:text="@string/contact_name_default" />
+        
+        <TextView android:id="@+id/contact_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:text="@string/contact_phone_default" />
+        
+        <TextView android:id="@+id/contact_mail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:text="@string/contact_mail_default" />
+        
+    </LinearLayout>
+    
+
+</LinearLayout>

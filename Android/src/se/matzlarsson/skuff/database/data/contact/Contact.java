@@ -61,6 +61,10 @@ public class Contact implements Saveable{
 		this.phone = phone;
 	}
 
+	public boolean hasMail(){
+		return mail!=null && mail.length()>0;
+	}
+	
 	public String getMail() {
 		return mail;
 	}

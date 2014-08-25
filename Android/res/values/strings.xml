@@ -17,9 +17,15 @@
     
     <string name="sag_member_image">Bild av ledamot</string>
     <string name="sag_member_post_default">Ledamot</string>
-    <string name="sag_member_name_default">Förnamn Efternamn</string>
+    <string name="sag_member_name_default">Ledamotens namn</string>
     <string name="sag_member_age_default">XX år</string>
     <string name="sag_age_unity">år</string>
+    
+    <string name="contact_image">Kontaktbild</string>
+    <string name="contact_name_default">Kontaktens namn</string>
+    <string name="contact_phone_default">Inget tel.nummer</string>
+    <string name="contact_mail_default">Ingen mail</string>
+    <string name="contact_mail_header">Välj mail-klient</string>
 
     <string-array name="nav_drawer_items">
         <item>Nyheter</item>

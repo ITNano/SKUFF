@@ -3,21 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
      
-    <TextView
-        android:id="@+id/txtLabel"
-         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textSize="16sp"
-        android:text="Contact View"/>
-     
-    <ImageView android:layout_width="wrap_content"
-        android:contentDescription="image"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtLabel"
-        android:src="@drawable/ic_contact"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
+    <ListView
+        android:id="@+id/contacts_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:choiceMode="none"
+        android:divider="@color/skufflist_divider"
+        android:dividerHeight="1dp"       
+        android:listSelector="@color/transparent"
+        android:background="@color/skufflist_background"/>
      
  
 </RelativeLayout>

@@ -7,6 +7,7 @@ import se.matzlarsson.skuff.database.DatabaseHelper;
 import se.matzlarsson.skuff.nav.NavDrawerItem;
 import se.matzlarsson.skuff.nav.NavDrawerListAdapter;
 import se.matzlarsson.skuff.ui.calender.CalenderFragment;
+import se.matzlarsson.skuff.ui.contact.ContactFragment;
 import se.matzlarsson.skuff.ui.groups.GroupsFragment;
 import se.matzlarsson.skuff.ui.news.NewsFragment;
 import se.matzlarsson.skuff.ui.sag.SagFragment;
