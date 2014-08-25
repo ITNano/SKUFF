@@ -6,7 +6,7 @@ import java.util.List;
 
 import se.matzlarsson.skuff.R;
 import se.matzlarsson.skuff.database.DatabaseFetcher;
-import se.matzlarsson.skuff.database.data.Event;
+import se.matzlarsson.skuff.database.data.event.Event;
 import se.matzlarsson.skuff.ui.FragmentDisplayer;
 import se.matzlarsson.skuff.ui.Refreshable;
 import android.os.Bundle;

@@ -3,9 +3,10 @@ package se.matzlarsson.skuff.ui.news;
 import se.matzlarsson.skuff.R;
 import se.matzlarsson.skuff.database.DatabaseFetcher;
 import se.matzlarsson.skuff.database.DateUtil;
-import se.matzlarsson.skuff.database.data.News;
+import se.matzlarsson.skuff.database.data.news.News;
 import se.matzlarsson.skuff.ui.FragmentDisplayer;
 import se.matzlarsson.skuff.ui.StartScreen;
+import se.matzlarsson.skuff.ui.TextFormatter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -34,6 +35,11 @@ public class NewsDisplayFragment extends Fragment {
         TextView header = (TextView) view.findViewById(R.id.news_header);
         TextView content = (TextView) view.findViewById(R.id.news_content);
         TextView addInfo = (TextView) view.findViewById(R.id.news_additional_info);
+
+        //Setup typeface
+        TextFormatter.useCustomFont(getActivity(), header);
+        TextFormatter.useCustomFont(getActivity(), content);
+        TextFormatter.useCustomFont(getActivity(), addInfo);
         
         News news = DatabaseFetcher.getNewsById(this.id);
         if(news != null){

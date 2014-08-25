@@ -4,7 +4,7 @@ import java.util.Date;
 
 import se.matzlarsson.skuff.R;
 import se.matzlarsson.skuff.database.DatabaseFetcher;
-import se.matzlarsson.skuff.database.data.EventInfo;
+import se.matzlarsson.skuff.database.data.event.EventInfo;
 import se.matzlarsson.skuff.ui.FragmentDisplayer;
 import se.matzlarsson.skuff.ui.Refreshable;
 import se.matzlarsson.skuff.ui.StartScreen;

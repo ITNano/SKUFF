@@ -4,7 +4,8 @@ import java.util.List;
 
 import se.matzlarsson.skuff.R;
 import se.matzlarsson.skuff.database.DateUtil;
-import se.matzlarsson.skuff.database.data.News;
+import se.matzlarsson.skuff.database.data.news.News;
+import se.matzlarsson.skuff.ui.TextFormatter;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -58,6 +59,12 @@ public class NewsListAdapter extends BaseAdapter {
         TextView content = (TextView) convertView.findViewById(R.id.news_content);
         TextView addInfo = (TextView) convertView.findViewById(R.id.news_additional_info);
         TextView readMore = (TextView) convertView.findViewById(R.id.news_read_more);
+
+        //Setup typeface
+        TextFormatter.useCustomFont(context, header);
+        TextFormatter.useCustomFont(context, content);
+        TextFormatter.useCustomFont(context, addInfo);
+        TextFormatter.useCustomFont(context, readMore);
         
         News news = newsItems.get(position);
         id.setText(news.getId()+"");

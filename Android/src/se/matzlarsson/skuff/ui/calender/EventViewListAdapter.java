@@ -1,9 +1,9 @@
 package se.matzlarsson.skuff.ui.calender;
 
 import se.matzlarsson.skuff.R;
-import se.matzlarsson.skuff.database.data.Event;
-import se.matzlarsson.skuff.database.data.EventInfo;
 import se.matzlarsson.skuff.database.data.StringUtil;
+import se.matzlarsson.skuff.database.data.event.Event;
+import se.matzlarsson.skuff.database.data.event.EventInfo;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
