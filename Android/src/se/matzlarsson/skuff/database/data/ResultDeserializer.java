@@ -2,6 +2,7 @@ package se.matzlarsson.skuff.database.data;
 
 import java.lang.reflect.Type;
 
+import se.matzlarsson.skuff.database.data.contact.ContactDeserializer;
 import se.matzlarsson.skuff.database.data.event.EventDeserializer;
 import se.matzlarsson.skuff.database.data.event.EventPropertyDeserializer;
 import se.matzlarsson.skuff.database.data.event.EventValueDeserializer;
@@ -33,6 +34,7 @@ public class ResultDeserializer implements JsonDeserializer<Result>{
 		result.setGroupProperties(new GroupPropertyDeserializer().deserialize(obj.get("groupproperties").getAsJsonArray(), type, context));
 		result.setGroupValues(new GroupValueDeserializer().deserialize(obj.get("groupvalues").getAsJsonArray(), type, context));
 		result.setSAG(new SAGDeserializer().deserialize(obj.get("sag").getAsJsonArray(), type, context));
+		result.setContacts(new ContactDeserializer().deserialize(obj.get("contacts").getAsJsonArray(), type, context));
 		
 		return result;
 	}

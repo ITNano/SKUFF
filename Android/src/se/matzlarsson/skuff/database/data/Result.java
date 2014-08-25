@@ -1,6 +1,7 @@
 package se.matzlarsson.skuff.database.data;
 
 import se.matzlarsson.skuff.database.DatabaseHelper;
+import se.matzlarsson.skuff.database.data.contact.Contact;
 import se.matzlarsson.skuff.database.data.event.Event;
 import se.matzlarsson.skuff.database.data.event.EventProperty;
 import se.matzlarsson.skuff.database.data.event.EventValue;
@@ -22,6 +23,7 @@ public class Result {
 	private GroupProperty[] groupProperties;
 	private GroupValue[] groupValues;
 	private SAG[] sag;
+	private Contact[] contacts;
 	
 	public News[] getNews() {
 		return news;
@@ -92,6 +94,14 @@ public class Result {
 		this.sag = sag;
 	}
 	
+	public Contact[] getContacts() {
+		return contacts;
+	}
+	
+	public void setContacts(Contact[] contacts) {
+		this.contacts = contacts;
+	}
+	
 	public String getUpdatesInfo(){
 		String updates = "";
 		if(news.length>0)updates += news.length+" news";
@@ -103,6 +113,7 @@ public class Result {
 		if(groupProperties.length>0)updates += (updates.length()>0?", ":"")+groupProperties.length+" group props";
 		if(groupValues.length>0)updates += (updates.length()>0?", ":"")+groupValues.length+" group values";
 		if(sag.length>0)updates += (updates.length()>0?", ":"")+sag.length+" SAG members";
+		if(contacts.length>0)updates += (updates.length()>0?", ":"")+contacts.length+" contacts";
 		
 		if(updates.length()<=0){
 			updates = "No updates found";
@@ -139,6 +150,9 @@ public class Result {
 		for(int i = 0; i<sag.length; i++){
 			sag[i].saveToDb(db);
 		}
+		for(int i = 0; i<contacts.length; i++){
+			contacts[i].saveToDb(db);
+		}
 	}
 	
 	@Override
@@ -170,6 +184,9 @@ public class Result {
 		}
 		for(int i = 0; i<sag.length; i++){
 			s += "\t"+sag[i].toString()+"\n";
+		}
+		for(int i = 0; i<contacts.length; i++){
+			s += "\t"+contacts[i].toString()+"\n";
 		}
 		s += "]";
 		return s;

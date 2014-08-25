@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import se.matzlarsson.skuff.database.data.contact.Contact;
 import se.matzlarsson.skuff.database.data.event.Event;
 import se.matzlarsson.skuff.database.data.event.EventInfo;
 import se.matzlarsson.skuff.database.data.event.EventValue;
@@ -140,6 +141,22 @@ public class DatabaseFetcher {
 		}
 		
 		return sag;
+	}
+	
+	public static Contact[] getContacts(){
+		DatabaseHelper db = DatabaseHelper.getInstance();
+		String query = "SELECT _id,name,phone,mail,image FROM "+DatabaseFactory.TABLE_CONTACTS+" ORDER BY name ASC";
+		Cursor c = db.selectQuery(query, new String[]{});
+		Contact[] contacts = new Contact[c.getCount()];
+		c.moveToFirst();
+		int num = 0;
+		while(!c.isAfterLast()){
+			contacts[num] = new Contact(c);
+			c.moveToNext();
+			num++;
+		}
+		
+		return contacts;
 	}
 
 }

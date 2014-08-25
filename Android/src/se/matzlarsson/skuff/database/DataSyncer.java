@@ -128,8 +128,7 @@ public class DataSyncer extends AsyncTask<String, Void, Result>{
 		DatabaseHelper db = DatabaseHelper.getInstance();
 		result.saveToDb(db);
 		DBTable table = DatabaseFactory.getTable(DatabaseFactory.TABLE_UPDATES);
-		db.truncateTable(table);
-		db.insertQuery(table, new String[]{"1", DateUtil.dateToString(new Date())});
+		db.insertOrUpdateQuery(table, new String[]{"1", DateUtil.dateToString(new Date())});
 	}
 	
 	public void loadedData(Result result){
