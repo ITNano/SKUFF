@@ -8,6 +8,7 @@ import se.matzlarsson.skuff.database.data.group.Group;
 import se.matzlarsson.skuff.database.data.group.GroupProperty;
 import se.matzlarsson.skuff.database.data.group.GroupValue;
 import se.matzlarsson.skuff.database.data.news.News;
+import se.matzlarsson.skuff.database.data.sag.SAG;
 import se.matzlarsson.skuff.database.data.user.User;
 
 public class Result {
@@ -20,6 +21,7 @@ public class Result {
 	private Group[] groups;
 	private GroupProperty[] groupProperties;
 	private GroupValue[] groupValues;
+	private SAG[] sag;
 	
 	public News[] getNews() {
 		return news;
@@ -82,6 +84,14 @@ public class Result {
 		this.groupValues = groupValues;
 	}
 	
+	public SAG[] getSAG() {
+		return sag;
+	}
+	
+	public void setSAG(SAG[] sag) {
+		this.sag = sag;
+	}
+	
 	public String getUpdatesInfo(){
 		String updates = "";
 		if(news.length>0)updates += news.length+" news";
@@ -92,6 +102,7 @@ public class Result {
 		if(groups.length>0)updates += (updates.length()>0?", ":"")+groups.length+" groups";
 		if(groupProperties.length>0)updates += (updates.length()>0?", ":"")+groupProperties.length+" group props";
 		if(groupValues.length>0)updates += (updates.length()>0?", ":"")+groupValues.length+" group values";
+		if(sag.length>0)updates += (updates.length()>0?", ":"")+sag.length+" SAG members";
 		
 		if(updates.length()<=0){
 			updates = "No updates found";
@@ -125,6 +136,9 @@ public class Result {
 		for(int i = 0; i<groupValues.length; i++){
 			groupValues[i].saveToDb(db);
 		}
+		for(int i = 0; i<sag.length; i++){
+			sag[i].saveToDb(db);
+		}
 	}
 	
 	@Override
@@ -153,6 +167,9 @@ public class Result {
 		}
 		for(int i = 0; i<groupValues.length; i++){
 			s += "\t"+groupValues[i].toString()+"\n";
+		}
+		for(int i = 0; i<sag.length; i++){
+			s += "\t"+sag[i].toString()+"\n";
 		}
 		s += "]";
 		return s;

@@ -9,6 +9,7 @@ import se.matzlarsson.skuff.database.data.group.GroupDeserializer;
 import se.matzlarsson.skuff.database.data.group.GroupPropertyDeserializer;
 import se.matzlarsson.skuff.database.data.group.GroupValueDeserializer;
 import se.matzlarsson.skuff.database.data.news.NewsDeserializer;
+import se.matzlarsson.skuff.database.data.sag.SAGDeserializer;
 import se.matzlarsson.skuff.database.data.user.UserDeserializer;
 
 import com.google.gson.JsonDeserializationContext;
@@ -31,6 +32,7 @@ public class ResultDeserializer implements JsonDeserializer<Result>{
 		result.setGroups(new GroupDeserializer().deserialize(obj.get("groups").getAsJsonArray(), type, context));
 		result.setGroupProperties(new GroupPropertyDeserializer().deserialize(obj.get("groupproperties").getAsJsonArray(), type, context));
 		result.setGroupValues(new GroupValueDeserializer().deserialize(obj.get("groupvalues").getAsJsonArray(), type, context));
+		result.setSAG(new SAGDeserializer().deserialize(obj.get("sag").getAsJsonArray(), type, context));
 		
 		return result;
 	}

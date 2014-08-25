@@ -15,9 +15,10 @@ public class DatabaseFactory {
 	public static final String TABLE_GROUPS = "groups";
 	public static final String TABLE_GROUP_PROPERTIES = "groupproperties";
 	public static final String TABLE_GROUP_VALUES = "groupvalues";
+	public static final String TABLE_SAG = "sag";
 
 	private static void initiateTables(){
-		tables = new DBTable[9];
+		tables = new DBTable[10];
 		tables[0] = new DBTable(TABLE_UPDATES);
 		tables[0].addValue(new DBValue("_id", DBValue.DATATYPE_INT, true, true));
 		tables[0].addValue(new DBValue("time", DBValue.DATATYPE_TEXT));
@@ -55,6 +56,13 @@ public class DatabaseFactory {
 		tables[8].addValue(new DBValue("groupID", DBValue.DATATYPE_INT));
 		tables[8].addValue(new DBValue("propertyID", DBValue.DATATYPE_INT));
 		tables[8].addValue(new DBValue("value", DBValue.DATATYPE_TEXT));
+		tables[9] = new DBTable(TABLE_SAG);
+		tables[9].addValue(new DBValue("_id", DBValue.DATATYPE_INT, true, true));
+		tables[9].addValue(new DBValue("name", DBValue.DATATYPE_TEXT));
+		tables[9].addValue(new DBValue("post", DBValue.DATATYPE_TEXT));
+		tables[9].addValue(new DBValue("birth", DBValue.DATATYPE_TEXT));
+		tables[9].addValue(new DBValue("image", DBValue.DATATYPE_TEXT));
+		tables[9].addValue(new DBValue("displayOrder", DBValue.DATATYPE_INT));
 	}
 	
 	public static DBTable[] getTables(){

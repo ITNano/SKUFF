@@ -11,6 +11,7 @@ import se.matzlarsson.skuff.database.data.group.Group;
 import se.matzlarsson.skuff.database.data.group.GroupInfo;
 import se.matzlarsson.skuff.database.data.group.GroupValue;
 import se.matzlarsson.skuff.database.data.news.News;
+import se.matzlarsson.skuff.database.data.sag.SAG;
 import android.database.Cursor;
 
 public class DatabaseFetcher {
@@ -123,6 +124,22 @@ public class DatabaseFetcher {
 		}
 		
 		return values;
+	}
+	
+	public static SAG[] getSAGMembers(){
+		DatabaseHelper db = DatabaseHelper.getInstance();
+		String query = "SELECT _id,name,post,birth,image,displayOrder FROM "+DatabaseFactory.TABLE_SAG+" ORDER BY displayOrder ASC,name ASC";
+		Cursor c = db.selectQuery(query, new String[]{});
+		SAG[] sag = new SAG[c.getCount()];
+		c.moveToFirst();
+		int num = 0;
+		while(!c.isAfterLast()){
+			sag[num] = new SAG(c);
+			c.moveToNext();
+			num++;
+		}
+		
+		return sag;
 	}
 
 }
