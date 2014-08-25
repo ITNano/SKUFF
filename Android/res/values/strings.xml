@@ -12,6 +12,8 @@
     <string name="news_info_post">av</string>
     
     <string name="compulsory">Obligatorisk</string>
+    
+    <string name="group_name_default">Gruppnamn</string>
 
     <string-array name="nav_drawer_items">
         <item>Nyheter</item>

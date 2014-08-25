@@ -85,15 +85,17 @@ public class DatabaseFetcher {
 		return values;
 	}
 	
-	public static List<Group> getGroups(){
+	public static Group[] getGroups(){
 		DatabaseHelper db = DatabaseHelper.getInstance();
-		String query = "SELECT _id, name FROM "+DatabaseFactory.TABLE_GROUPS+" ORDER BY date ASC";
+		String query = "SELECT _id, name FROM "+DatabaseFactory.TABLE_GROUPS+" ORDER BY name ASC";
 		Cursor c = db.selectQuery(query, new String[]{});
-		List<Group> groups = new ArrayList<Group>();
+		Group[] groups = new Group[c.getCount()];
 		c.moveToFirst();
+		int num = 0;
 		while(!c.isAfterLast()){
-			groups.add(new Group(c));
+			groups[num] = new Group(c);
 			c.moveToNext();
+			num++;
 		}
 		
 		return groups;
@@ -110,7 +112,7 @@ public class DatabaseFetcher {
 	
 	public static GroupValue[] getGroupValues(int id){
 		DatabaseHelper db = DatabaseHelper.getInstance();
-		String query = "SELECT V._id AS _id, V.eventID AS groupID, V.propertyID AS propertyID, V.value AS value, P.name AS propertyName FROM "+
+		String query = "SELECT V._id AS _id, V.groupID AS groupID, V.propertyID AS propertyID, V.value AS value, P.name AS propertyName FROM "+
 						DatabaseFactory.TABLE_GROUP_VALUES+" V LEFT JOIN "+DatabaseFactory.TABLE_GROUP_PROPERTIES+" P ON P._id = V.propertyID WHERE V.groupID = ? ORDER BY _id";
 		Cursor c = db.selectQuery(query, new String[]{id+""});
 		GroupValue[] values = new GroupValue[c.getCount()];
