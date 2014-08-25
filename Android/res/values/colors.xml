@@ -13,6 +13,8 @@
     <color name="skufflist_divider">#B0000000</color>
     <color name="skufflist_background">#40F9F9F9</color>
     <color name="skufflist_background_pressed">#80888888</color>
+    <color name="skufflist_background_clear">#40F9F9F9</color>
+    <color name="skufflist_background_pressed_clear">#FF0000</color>
     
     <color name="newspost_background">#A0FFFFFF</color>
     <color name="news_header_color">#000000</color>

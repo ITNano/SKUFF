@@ -4,7 +4,7 @@ public class DatabaseFactory {
 	
 	private static DBTable[] tables;
 	
-	private static final int VERSION = 6;
+	private static final int VERSION = 7;
 
 	public static final String TABLE_UPDATES = "updates";
 	public static final String TABLE_NEWS = "news";

@@ -9,9 +9,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:choiceMode="singleChoice"
-        android:divider="@color/skufflist_divider"
+        android:divider="@color/transparent"
         android:dividerHeight="0dp"    
-        android:listSelector="@drawable/skufflist_selector"
+        android:listSelector="@drawable/skufflist_selector_clear"
         android:scrollbars="none"
         android:background="@color/skufflist_background" />
      

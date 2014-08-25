@@ -6,7 +6,6 @@ import se.matzlarsson.skuff.database.DatabaseFactory;
 import se.matzlarsson.skuff.database.DatabaseHelper;
 import se.matzlarsson.skuff.database.DateUtil;
 import se.matzlarsson.skuff.database.data.Saveable;
-import se.matzlarsson.skuff.database.data.StringUtil;
 import android.database.Cursor;
 
 public class SAG implements Saveable{
@@ -69,6 +68,16 @@ public class SAG implements Saveable{
 		this.post = post;
 	}
 
+	public int getAge(){
+		Date now = new Date();
+		int years = now.getYear()-birth.getYear();
+		if(now.getMonth()<birth.getMonth() || (now.getMonth()==birth.getMonth() && now.getDate()<birth.getDate())){
+			years--;
+		}
+		
+		return years;
+	}
+	
 	public Date getBirth() {
 		return birth;
 	}
