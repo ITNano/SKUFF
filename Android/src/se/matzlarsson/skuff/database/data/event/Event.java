@@ -1,10 +1,11 @@
-package se.matzlarsson.skuff.database.data;
+package se.matzlarsson.skuff.database.data.event;
 
 import java.util.Date;
 
 import se.matzlarsson.skuff.database.DatabaseFactory;
 import se.matzlarsson.skuff.database.DatabaseHelper;
 import se.matzlarsson.skuff.database.DateUtil;
+import se.matzlarsson.skuff.database.data.Saveable;
 import android.database.Cursor;
 
 public class Event implements Saveable{

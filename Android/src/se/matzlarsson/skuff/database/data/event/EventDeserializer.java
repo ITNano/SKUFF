@@ -1,4 +1,4 @@
-package se.matzlarsson.skuff.database.data;
+package se.matzlarsson.skuff.database.data.event;
 
 import java.lang.reflect.Type;
 

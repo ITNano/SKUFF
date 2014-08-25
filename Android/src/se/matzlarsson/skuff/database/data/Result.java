@@ -1,6 +1,14 @@
 package se.matzlarsson.skuff.database.data;
 
 import se.matzlarsson.skuff.database.DatabaseHelper;
+import se.matzlarsson.skuff.database.data.event.Event;
+import se.matzlarsson.skuff.database.data.event.EventProperty;
+import se.matzlarsson.skuff.database.data.event.EventValue;
+import se.matzlarsson.skuff.database.data.group.Group;
+import se.matzlarsson.skuff.database.data.group.GroupProperty;
+import se.matzlarsson.skuff.database.data.group.GroupValue;
+import se.matzlarsson.skuff.database.data.news.News;
+import se.matzlarsson.skuff.database.data.user.User;
 
 public class Result {
 	
@@ -9,6 +17,9 @@ public class Result {
 	private Event[] events;
 	private EventProperty[] eventProperties;
 	private EventValue[] eventValues;
+	private Group[] groups;
+	private GroupProperty[] groupProperties;
+	private GroupValue[] groupValues;
 	
 	public News[] getNews() {
 		return news;
@@ -47,6 +58,30 @@ public class Result {
 		this.eventValues = eventValues;
 	}
 	
+	public Group[] getGroups() {
+		return groups;
+	}
+	
+	public void setGroups(Group[] groups) {
+		this.groups = groups;
+	}
+	
+	public GroupProperty[] getGroupProperties() {
+		return groupProperties;
+	}
+	
+	public void setGroupProperties(GroupProperty[] groupProperties) {
+		this.groupProperties = groupProperties;
+	}
+	
+	public GroupValue[] getGroupValues() {
+		return groupValues;
+	}
+	
+	public void setGroupValues(GroupValue[] groupValues) {
+		this.groupValues = groupValues;
+	}
+	
 	public String getUpdatesInfo(){
 		String updates = "";
 		if(news.length>0)updates += news.length+" news";
@@ -54,6 +89,9 @@ public class Result {
 		if(events.length>0)updates += (updates.length()>0?", ":"")+events.length+" events";
 		if(eventProperties.length>0)updates += (updates.length()>0?", ":"")+eventProperties.length+" event props";
 		if(eventValues.length>0)updates += (updates.length()>0?", ":"")+eventValues.length+" event values";
+		if(groups.length>0)updates += (updates.length()>0?", ":"")+groups.length+" groups";
+		if(groupProperties.length>0)updates += (updates.length()>0?", ":"")+groupProperties.length+" group props";
+		if(groupValues.length>0)updates += (updates.length()>0?", ":"")+groupValues.length+" group values";
 		
 		if(updates.length()<=0){
 			updates = "No updates found";
@@ -78,6 +116,15 @@ public class Result {
 		for(int i = 0; i<eventValues.length; i++){
 			eventValues[i].saveToDb(db);
 		}
+		for(int i = 0; i<groups.length; i++){
+			groups[i].saveToDb(db);
+		}
+		for(int i = 0; i<groupProperties.length; i++){
+			groupProperties[i].saveToDb(db);
+		}
+		for(int i = 0; i<groupValues.length; i++){
+			groupValues[i].saveToDb(db);
+		}
 	}
 	
 	@Override
@@ -97,6 +144,15 @@ public class Result {
 		}
 		for(int i = 0; i<eventValues.length; i++){
 			s += "\t"+eventValues[i].toString()+"\n";
+		}
+		for(int i = 0; i<groups.length; i++){
+			s += "\t"+groups[i].toString()+"\n";
+		}
+		for(int i = 0; i<groupProperties.length; i++){
+			s += "\t"+groupProperties[i].toString()+"\n";
+		}
+		for(int i = 0; i<groupValues.length; i++){
+			s += "\t"+groupValues[i].toString()+"\n";
 		}
 		s += "]";
 		return s;

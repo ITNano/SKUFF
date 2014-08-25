@@ -1,4 +1,4 @@
-package se.matzlarsson.skuff.database.data;
+package se.matzlarsson.skuff.database.data.news;
 
 import java.lang.reflect.Type;
 

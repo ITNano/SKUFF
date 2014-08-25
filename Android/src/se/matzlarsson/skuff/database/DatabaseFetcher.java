@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import se.matzlarsson.skuff.database.data.Event;
-import se.matzlarsson.skuff.database.data.EventInfo;
-import se.matzlarsson.skuff.database.data.EventValue;
-import se.matzlarsson.skuff.database.data.News;
+import se.matzlarsson.skuff.database.data.event.Event;
+import se.matzlarsson.skuff.database.data.event.EventInfo;
+import se.matzlarsson.skuff.database.data.event.EventValue;
+import se.matzlarsson.skuff.database.data.group.Group;
+import se.matzlarsson.skuff.database.data.group.GroupInfo;
+import se.matzlarsson.skuff.database.data.group.GroupValue;
+import se.matzlarsson.skuff.database.data.news.News;
 import android.database.Cursor;
 
 public class DatabaseFetcher {
@@ -37,7 +40,7 @@ public class DatabaseFetcher {
 			return null;
 		}
 	}
-	
+
 	public static List<Event> getEvents(){
 		DatabaseHelper db = DatabaseHelper.getInstance();
 		String query = "SELECT _id, date, name, compulsory, time FROM "+DatabaseFactory.TABLE_EVENTS+" ORDER BY date ASC";
@@ -76,6 +79,44 @@ public class DatabaseFetcher {
 		c.moveToFirst();
 		for(int i = 0; i<values.length; i++){
 			values[i] = new EventValue(c);
+			c.moveToNext();
+		}
+		
+		return values;
+	}
+	
+	public static List<Group> getGroups(){
+		DatabaseHelper db = DatabaseHelper.getInstance();
+		String query = "SELECT _id, name FROM "+DatabaseFactory.TABLE_GROUPS+" ORDER BY date ASC";
+		Cursor c = db.selectQuery(query, new String[]{});
+		List<Group> groups = new ArrayList<Group>();
+		c.moveToFirst();
+		while(!c.isAfterLast()){
+			groups.add(new Group(c));
+			c.moveToNext();
+		}
+		
+		return groups;
+	}
+	
+	public static GroupInfo getGroupInfo(int id){
+		DatabaseHelper db = DatabaseHelper.getInstance();
+		String query = "SELECT _id, name FROM "+DatabaseFactory.TABLE_GROUPS+" WHERE _id=? ORDER BY name ASC LIMIT 1";
+		Cursor c = db.selectQuery(query, new String[]{id+""});
+		c.moveToFirst();
+		Group group = new Group(c);
+		return new GroupInfo(group, getGroupValues(group.getId()));
+	}
+	
+	public static GroupValue[] getGroupValues(int id){
+		DatabaseHelper db = DatabaseHelper.getInstance();
+		String query = "SELECT V._id AS _id, V.eventID AS groupID, V.propertyID AS propertyID, V.value AS value, P.name AS propertyName FROM "+
+						DatabaseFactory.TABLE_GROUP_VALUES+" V LEFT JOIN "+DatabaseFactory.TABLE_GROUP_PROPERTIES+" P ON P._id = V.propertyID WHERE V.groupID = ? ORDER BY _id";
+		Cursor c = db.selectQuery(query, new String[]{id+""});
+		GroupValue[] values = new GroupValue[c.getCount()];
+		c.moveToFirst();
+		for(int i = 0; i<values.length; i++){
+			values[i] = new GroupValue(c);
 			c.moveToNext();
 		}
 		

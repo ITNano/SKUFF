@@ -1,10 +1,12 @@
-package se.matzlarsson.skuff.database.data;
+package se.matzlarsson.skuff.database.data.news;
 
 import java.util.Date;
 
 import se.matzlarsson.skuff.database.DatabaseFactory;
 import se.matzlarsson.skuff.database.DatabaseHelper;
 import se.matzlarsson.skuff.database.DateUtil;
+import se.matzlarsson.skuff.database.data.Saveable;
+import se.matzlarsson.skuff.database.data.StringUtil;
 import android.database.Cursor;
 
 public class News implements Saveable{

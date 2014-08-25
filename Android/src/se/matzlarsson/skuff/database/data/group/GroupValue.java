@@ -1,30 +1,30 @@
-package se.matzlarsson.skuff.database.data.event;
+package se.matzlarsson.skuff.database.data.group;
 
 import android.database.Cursor;
 import se.matzlarsson.skuff.database.DatabaseFactory;
 import se.matzlarsson.skuff.database.DatabaseHelper;
 import se.matzlarsson.skuff.database.data.Saveable;
 
-public class EventValue implements Saveable{
+public class GroupValue implements Saveable{
 
 	private int id;
-	private int eventID;
+	private int groupID;
 	private int propertyID;
 	private String value;
 	
 	private String propertyName;
 	
-	public EventValue() {
+	public GroupValue() {
 		setId(-1);
-		setEventID(-1);
+		setGroupID(-1);
 		setPropertyID(-1);
 		setValue("");
 		setPropertyName("Prop "+getPropertyID());
 	}
 	
-	public EventValue(Cursor cursor){
+	public GroupValue(Cursor cursor){
 		setId(cursor.getInt(cursor.getColumnIndex("_id")));
-		setEventID(cursor.getInt(cursor.getColumnIndex("eventID")));
+		setGroupID(cursor.getInt(cursor.getColumnIndex("groupID")));
 		setPropertyID(cursor.getInt(cursor.getColumnIndex("propertyID")));
 		setValue(cursor.getString(cursor.getColumnIndex("value")));
 		
@@ -35,9 +35,9 @@ public class EventValue implements Saveable{
 		}
 	}
 	
-	public EventValue(int id, int eventID, int propertyID, String value){
+	public GroupValue(int id, int groupID, int propertyID, String value){
 		setId(-1);
-		setEventID(eventID);
+		setGroupID(groupID);
 		setPropertyID(propertyID);
 		setValue(value);
 		setPropertyName("Prop "+propertyID);
@@ -51,12 +51,12 @@ public class EventValue implements Saveable{
 		this.id = id;
 	}
 
-	public int getEventID() {
-		return eventID;
+	public int getGroupID() {
+		return groupID;
 	}
 
-	public void setEventID(int eventID) {
-		this.eventID = eventID;
+	public void setGroupID(int groupID) {
+		this.groupID = groupID;
 	}
 
 	public int getPropertyID() {
@@ -85,14 +85,14 @@ public class EventValue implements Saveable{
 
 	@Override
 	public void saveToDb(DatabaseHelper db){
-		db.insertOrUpdateQuery(DatabaseFactory.getTable(DatabaseFactory.TABLE_EVENT_VALUES), new String[]{getId()+"", getEventID()+"", getPropertyID()+"", getValue()});
+		db.insertOrUpdateQuery(DatabaseFactory.getTable(DatabaseFactory.TABLE_GROUP_VALUES), new String[]{getId()+"", getGroupID()+"", getPropertyID()+"", getValue()});
 	}
 
 	@Override
 	public String toString(){
-		String s = "EVENTVALUE:[ ";
+		String s = "GROUPVALUE:[ ";
 		s += "ID="+getId()+", ";
-		s += "eventID="+getEventID()+", ";
+		s += "eventID="+getGroupID()+", ";
 		s += "propertyID="+getPropertyID()+" ("+getPropertyName()+"), ";
 		s += "value="+getValue()+" ]";
 		

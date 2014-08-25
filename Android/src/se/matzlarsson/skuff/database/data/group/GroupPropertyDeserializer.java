@@ -1,4 +1,4 @@
-package se.matzlarsson.skuff.database.data.event;
+package se.matzlarsson.skuff.database.data.group;
 
 import java.lang.reflect.Type;
 
@@ -9,18 +9,18 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
-public class EventPropertyDeserializer implements JsonDeserializer<EventProperty[] >{
+public class GroupPropertyDeserializer implements JsonDeserializer<GroupProperty[] >{
 
 	@Override
-	public EventProperty[] deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
+	public GroupProperty[] deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
 		JsonArray arr = json.getAsJsonArray();
-		EventProperty[] allProps = new EventProperty[arr.size()];
+		GroupProperty[] allProps = new GroupProperty[arr.size()];
 		
 		JsonObject obj = null;
-		EventProperty prop = null;
+		GroupProperty prop = null;
 		for(int i = 0; i<arr.size(); i++){
 			obj = arr.get(i).getAsJsonObject();
-			prop = new EventProperty();
+			prop = new GroupProperty();
 			prop.setId(obj.get("id").getAsInt());
 			prop.setName(obj.get("name").getAsString());
 			allProps[i] = prop;

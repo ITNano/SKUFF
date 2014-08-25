@@ -1,28 +1,28 @@
-package se.matzlarsson.skuff.database.data.user;
+package se.matzlarsson.skuff.database.data.group;
 
 import se.matzlarsson.skuff.database.DatabaseFactory;
 import se.matzlarsson.skuff.database.DatabaseHelper;
 import se.matzlarsson.skuff.database.data.Saveable;
 import android.database.Cursor;
 
-public class User implements Saveable{
-	
+public class Group implements Saveable{
+
 	private int id;
 	private String name;
 	
-	public User(){
-		this.id = -1;
-		this.name = "";
+	public Group() {
+		setId(-1);
+		setName("");
 	}
 	
-	public User(Cursor cursor){
-		setId(cursor.getInt(cursor.getColumnIndex("_id")));
-		setName(cursor.getString(cursor.getColumnIndex("name")));
+	public Group(Cursor cursor){
+		this.setId(cursor.getInt(cursor.getColumnIndex("_id")));
+		this.setName(cursor.getString(cursor.getColumnIndex("name")));
 	}
-
-	public User(int id, String name) {
-		this.id = id;
-		this.name = name;
+	
+	public Group(int id, String name){
+		setId(id);
+		setName(name);
 	}
 
 	public int getId() {
@@ -40,18 +40,17 @@ public class User implements Saveable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	@Override
 	public void saveToDb(DatabaseHelper db){
-		db.insertOrUpdateQuery(DatabaseFactory.getTable(DatabaseFactory.TABLE_USERS), new String[]{getId()+"", getName()});
+		db.insertOrUpdateQuery(DatabaseFactory.getTable(DatabaseFactory.TABLE_GROUPS), new String[]{getId()+"", getName()});
 	}
-	
+
 	@Override
 	public String toString(){
-		String s = "USER:[ ";
+		String s = "GROUP:[ ";
 		s += "ID="+getId()+", ";
-		s += "name="+getName();
-		s += " ]";
+		s += "name='"+getName()+"' ]";
 		
 		return s;
 	}
