@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:choiceMode="none"
-        android:divider="@color/skufflist_divider"
+        android:divider="@color/theme_divider"
         android:dividerHeight="1dp"
         android:listSelector="@color/transparent"
         android:background="@color/skufflist_background" />

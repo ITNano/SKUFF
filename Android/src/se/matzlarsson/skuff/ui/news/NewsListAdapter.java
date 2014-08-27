@@ -80,8 +80,8 @@ public class NewsListAdapter extends BaseAdapter {
         String news_info_pre = parent.getResources().getString(R.string.news_info_pre);
         String news_info_post = parent.getResources().getString(R.string.news_info_post);
         addInfo.setText(news_info_pre+" "+DateUtil.dateToUIString(news.getTime())+" "+news_info_post+" "+news.getUser());
-         
-        return convertView;
+
+		return convertView;
     }
  
 }

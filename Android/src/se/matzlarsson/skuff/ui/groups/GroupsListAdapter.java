@@ -5,7 +5,7 @@ import se.matzlarsson.skuff.database.data.StringUtil;
 import se.matzlarsson.skuff.database.data.group.Group;
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +16,7 @@ public class GroupsListAdapter extends BaseAdapter {
 
 	private Context context;
 	private Group[] groups;
+	private static final int[] colors = {R.color.theme_color1, R.color.theme_color2};
 	
 	public GroupsListAdapter(Context context, Group[] groups){
 		this.context = context;
@@ -46,8 +47,7 @@ public class GroupsListAdapter extends BaseAdapter {
 		if(convertView == null){
 			LayoutInflater inflater = (LayoutInflater)context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 			convertView = inflater.inflate(R.layout.group_list_item, null);
-		}
-		
+		}		
 
 		TextView id = (TextView)convertView.findViewById(R.id.group_id);
 		TextView name = (TextView)convertView.findViewById(R.id.group_name);
@@ -55,6 +55,7 @@ public class GroupsListAdapter extends BaseAdapter {
 		id.setText(groups[position].getId()+"");
 		name.setText(StringUtil.swedify(groups[position].getName()));
 		
-		return convertView;
+		convertView.setBackgroundColor(context.getResources().getColor(colors[position%colors.length]));
+        return convertView;
 	}
 }
