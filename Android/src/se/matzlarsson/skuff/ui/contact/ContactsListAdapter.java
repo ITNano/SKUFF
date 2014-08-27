@@ -1,14 +1,12 @@
 package se.matzlarsson.skuff.ui.contact;
 
 import se.matzlarsson.skuff.R;
+import se.matzlarsson.skuff.database.IOUtil;
 import se.matzlarsson.skuff.database.data.StringUtil;
 import se.matzlarsson.skuff.database.data.contact.Contact;
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
-import android.content.res.Resources.NotFoundException;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -62,15 +60,9 @@ public class ContactsListAdapter extends BaseAdapter{
 		TextView phone = (TextView)info.findViewById(R.id.contact_phone);
 		TextView mail = (TextView)info.findViewById(R.id.contact_mail);
 		
-		Resources res = context.getResources();
-		Drawable img = null;
-		try{
-			img = res.getDrawable(res.getIdentifier(contacts[position].getImageName(), "drawable", "se.matzlarsson.skuff"));
-		}catch(NotFoundException nfe){
-			Log.e("Error", "Resource not found: '"+contacts[position].getImageName());
-		}
-		if(img != null){
-			image.setImageDrawable(img);
+		Bitmap bmp = IOUtil.getLocalImage(context, contacts[position].getImageName());
+		if(bmp != null){
+			image.setImageBitmap(bmp);
 		}
 		
 		String contactName = StringUtil.swedify(contacts[position].getName());

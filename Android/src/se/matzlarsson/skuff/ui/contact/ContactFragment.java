@@ -34,7 +34,7 @@ public class ContactFragment extends Fragment implements Refreshable {
 	public void sendMail(String emailAddress){
 		Intent mail = new Intent(Intent.ACTION_SEND);
 		mail.setType("message/rfc822");
-		mail.putExtra(Intent.EXTRA_EMAIL, emailAddress);
+		mail.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
 		try{
 			String header = getResources().getString(R.string.contact_mail_header);
 			getActivity().startActivity(Intent.createChooser(mail, header));

@@ -2,13 +2,14 @@ package se.matzlarsson.skuff.ui;
 
 import se.matzlarsson.skuff.R;
 import se.matzlarsson.skuff.database.DataSyncer;
+import se.matzlarsson.skuff.database.ResourceSyncer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
  
 public class TipFragment extends Fragment {
@@ -29,6 +30,8 @@ public class TipFragment extends Fragment {
 		   		public void onClick(View view){
 		   			DataSyncer syncer = DataSyncer.getInstance((ActionBarActivity)getActivity());
 		   			syncer.execute();
+		   			ResourceSyncer resSyncer = ResourceSyncer.getInstance((ActionBarActivity)getActivity());
+		   			resSyncer.execute();
 		   		}
 		   	});
 	    }
