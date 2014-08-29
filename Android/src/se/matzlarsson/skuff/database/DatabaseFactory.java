@@ -4,7 +4,7 @@ public class DatabaseFactory {
 	
 	private static DBTable[] tables;
 	
-	private static final int VERSION = 8;
+	private static final int VERSION = 9;
 
 	public static final String TABLE_UPDATES = "updates";
 	public static final String TABLE_NEWS = "news";
@@ -16,10 +16,13 @@ public class DatabaseFactory {
 	public static final String TABLE_GROUP_PROPERTIES = "groupproperties";
 	public static final String TABLE_GROUP_VALUES = "groupvalues";
 	public static final String TABLE_SAG = "sag";
+	public static final String TABLE_CONTEST = "contests";
+	public static final String TABLE_CONTEST_QUESTION = "contestquestions";
+	public static final String TABLE_CONTEST_OPTION = "contestoptions";
 	public static final String TABLE_CONTACTS = "contacts";
 
 	private static void initiateTables(){
-		tables = new DBTable[11];
+		tables = new DBTable[14];
 		tables[0] = new DBTable(TABLE_UPDATES);
 		tables[0].addValue(new DBValue("_id", DBValue.DATATYPE_INT, true, true));
 		tables[0].addValue(new DBValue("time", DBValue.DATATYPE_TEXT));
@@ -70,6 +73,21 @@ public class DatabaseFactory {
 		tables[10].addValue(new DBValue("phone", DBValue.DATATYPE_TEXT));
 		tables[10].addValue(new DBValue("mail", DBValue.DATATYPE_TEXT));
 		tables[10].addValue(new DBValue("image", DBValue.DATATYPE_TEXT));
+		tables[11] = new DBTable(TABLE_CONTEST);
+		tables[11].addValue(new DBValue("_id", DBValue.DATATYPE_INT, true, true));
+		tables[11].addValue(new DBValue("theme", DBValue.DATATYPE_TEXT));
+		tables[11].addValue(new DBValue("price", DBValue.DATATYPE_TEXT));
+		tables[11].addValue(new DBValue("ends", DBValue.DATATYPE_TEXT));
+		tables[11].addValue(new DBValue("time", DBValue.DATATYPE_TEXT));
+		tables[12] = new DBTable(TABLE_CONTEST_QUESTION);
+		tables[12].addValue(new DBValue("_id", DBValue.DATATYPE_INT, true, true));
+		tables[12].addValue(new DBValue("contestID", DBValue.DATATYPE_INT));
+		tables[12].addValue(new DBValue("question", DBValue.DATATYPE_TEXT));
+		tables[12].addValue(new DBValue("type", DBValue.DATATYPE_INT));
+		tables[13] = new DBTable(TABLE_CONTEST_OPTION);
+		tables[13].addValue(new DBValue("_id", DBValue.DATATYPE_INT, true, true));
+		tables[13].addValue(new DBValue("questionID", DBValue.DATATYPE_INT));
+		tables[13].addValue(new DBValue("option", DBValue.DATATYPE_TEXT));
 	}
 	
 	public static DBTable[] getTables(){

@@ -2,9 +2,10 @@ package se.matzlarsson.skuff.database;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 public class DateUtil {
@@ -35,4 +36,8 @@ public class DateUtil {
 		return null;
 	}
 
+	@SuppressLint("SimpleDateFormat")
+	public static String getNow(){
+		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance(Locale.GERMANY).getTime());
+	}
 }
