@@ -3,6 +3,9 @@ package se.matzlarsson.skuff.database.data;
 import java.lang.reflect.Type;
 
 import se.matzlarsson.skuff.database.data.contact.ContactDeserializer;
+import se.matzlarsson.skuff.database.data.contest.ContestDeserializer;
+import se.matzlarsson.skuff.database.data.contest.ContestQuestionDeserializer;
+import se.matzlarsson.skuff.database.data.contest.QuestionOptionDeserializer;
 import se.matzlarsson.skuff.database.data.event.EventDeserializer;
 import se.matzlarsson.skuff.database.data.event.EventPropertyDeserializer;
 import se.matzlarsson.skuff.database.data.event.EventValueDeserializer;
@@ -25,16 +28,19 @@ public class ResultDeserializer implements JsonDeserializer<Result>{
 	public Result deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
 		JsonObject obj = json.getAsJsonObject();
 		Result result = new Result();
-		result.setNews(new NewsDeserializer().deserialize(obj.get("news").getAsJsonArray(), type, context));
-		result.setUsers(new UserDeserializer().deserialize(obj.get("users").getAsJsonArray(), type, context));
-		result.setEvents(new EventDeserializer().deserialize(obj.get("events").getAsJsonArray(), type, context));
-		result.setEventProperties(new EventPropertyDeserializer().deserialize(obj.get("eventproperties").getAsJsonArray(), type, context));
-		result.setEventValues(new EventValueDeserializer().deserialize(obj.get("eventvalues").getAsJsonArray(), type, context));
-		result.setGroups(new GroupDeserializer().deserialize(obj.get("groups").getAsJsonArray(), type, context));
-		result.setGroupProperties(new GroupPropertyDeserializer().deserialize(obj.get("groupproperties").getAsJsonArray(), type, context));
-		result.setGroupValues(new GroupValueDeserializer().deserialize(obj.get("groupvalues").getAsJsonArray(), type, context));
-		result.setSAG(new SAGDeserializer().deserialize(obj.get("sag").getAsJsonArray(), type, context));
-		result.setContacts(new ContactDeserializer().deserialize(obj.get("contacts").getAsJsonArray(), type, context));
+		result.addData(new NewsDeserializer().deserialize(obj.get("news").getAsJsonArray(), type, context));
+		result.addData(new UserDeserializer().deserialize(obj.get("users").getAsJsonArray(), type, context));
+		result.addData(new EventDeserializer().deserialize(obj.get("events").getAsJsonArray(), type, context));
+		result.addData(new EventPropertyDeserializer().deserialize(obj.get("eventproperties").getAsJsonArray(), type, context));
+		result.addData(new EventValueDeserializer().deserialize(obj.get("eventvalues").getAsJsonArray(), type, context));
+		result.addData(new GroupDeserializer().deserialize(obj.get("groups").getAsJsonArray(), type, context));
+		result.addData(new GroupPropertyDeserializer().deserialize(obj.get("groupproperties").getAsJsonArray(), type, context));
+		result.addData(new GroupValueDeserializer().deserialize(obj.get("groupvalues").getAsJsonArray(), type, context));
+		result.addData(new SAGDeserializer().deserialize(obj.get("sag").getAsJsonArray(), type, context));
+		result.addData(new ContestDeserializer().deserialize(obj.get("contests").getAsJsonArray(), type, context));
+		result.addData(new ContestQuestionDeserializer().deserialize(obj.get("contestquestions").getAsJsonArray(), type, context));
+		result.addData(new QuestionOptionDeserializer().deserialize(obj.get("contestoptions").getAsJsonArray(), type, context));
+		result.addData(new ContactDeserializer().deserialize(obj.get("contacts").getAsJsonArray(), type, context));
 		
 		return result;
 	}
