@@ -1,23 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="25dp"
+    android:orientation="vertical">
      
     <TextView
-        android:id="@+id/txtLabel"
-         android:layout_width="wrap_content"
+        android:id="@+id/contest_header"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textSize="16sp"
-        android:text="Contest View"/>
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        android:textSize="18sp"
+        android:text="@string/contest_header"/>
      
-    <ImageView android:layout_width="wrap_content"
-        android:contentDescription="image"
+    <LinearLayout android:id="@+id/contest_theme_wrapper"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txtLabel"
-        android:src="@drawable/ic_contest"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginBottom="12dp"
+        android:orientation="horizontal">
+        
+        <TextView android:id="@+id/contest_theme_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.35"
+            android:textStyle="bold"
+            android:text="@string/contest_theme_label" />
+        
+        <TextView android:id="@+id/contest_theme_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.65"
+            android:text="@string/contest_theme_value" />
+        
+    </LinearLayout>
+    
+    <LinearLayout android:id="@+id/contest_price_wrapper"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:orientation="horizontal">
+        
+        <TextView android:id="@+id/contest_price_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.35"
+            android:textStyle="bold"
+            android:text="@string/contest_price_label" />
+        
+        <TextView android:id="@+id/contest_price_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.65"
+            android:text="@string/contest_price_value" />
+        
+    </LinearLayout>
+    
+    <LinearLayout android:id="@+id/contest_ending_wrapper"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:orientation="horizontal">
+        
+        <TextView android:id="@+id/contest_ending_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.35"
+            android:textStyle="bold"
+            android:text="@string/contest_ending_label" />
+        
+        <TextView android:id="@+id/contest_ending_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.65"
+            android:text="@string/contest_ending_value" />
+        
+    </LinearLayout>
+    
+    <TextView android:id="@+id/contest_time_info"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:text="@string/contest_time_info"/>
+    
+    <Button android:id="@+id/contest_start_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="35dp"
+        android:text="@string/contest_start_label" />
+    
+    <TextView android:id="@+id/contest_error404"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:text="@string/contest_error404" />
      
  
-</RelativeLayout>
+</LinearLayout>

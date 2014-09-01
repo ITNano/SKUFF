@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import se.matzlarsson.skuff.database.data.contact.Contact;
+import se.matzlarsson.skuff.database.data.contest.Contest;
+import se.matzlarsson.skuff.database.data.contest.ContestFactory;
 import se.matzlarsson.skuff.database.data.event.Event;
 import se.matzlarsson.skuff.database.data.event.EventInfo;
 import se.matzlarsson.skuff.database.data.event.EventValue;
@@ -141,6 +143,10 @@ public class DatabaseFetcher {
 		}
 		
 		return sag;
+	}
+	
+	public static Contest getContest(){
+		return ContestFactory.getContest();
 	}
 	
 	public static Contact[] getContacts(){

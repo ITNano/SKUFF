@@ -8,6 +8,7 @@ import se.matzlarsson.skuff.nav.NavDrawerItem;
 import se.matzlarsson.skuff.nav.NavDrawerListAdapter;
 import se.matzlarsson.skuff.ui.calender.CalenderFragment;
 import se.matzlarsson.skuff.ui.contact.ContactFragment;
+import se.matzlarsson.skuff.ui.contest.ContestFragment;
 import se.matzlarsson.skuff.ui.groups.GroupsFragment;
 import se.matzlarsson.skuff.ui.news.NewsFragment;
 import se.matzlarsson.skuff.ui.sag.SagFragment;
@@ -37,6 +38,8 @@ public class StartScreen extends ActionBarActivity implements FragmentDisplayer{
 	public static final String FRAGMENT_TIP = "tip";
 	public static final String FRAGMENT_CONTACT = "contact";
 	
+	private boolean menuDisabled = false;
+	
 	private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -58,6 +61,23 @@ public class StartScreen extends ActionBarActivity implements FragmentDisplayer{
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
  
+    
+    public boolean isMenuDisabled(){
+    	return menuDisabled;
+    }
+    
+    public void setMenuDisabled(boolean menuDisabled){
+    	this.menuDisabled = menuDisabled;
+    	mDrawerLayout.setEnabled(!menuDisabled);
+    	mDrawerLayout.setDrawerLockMode((menuDisabled?DrawerLayout.LOCK_MODE_LOCKED_CLOSED:DrawerLayout.LOCK_MODE_UNLOCKED));
+    	if(menuDisabled){
+    		this.getSupportActionBar().hide();
+    	}else{
+    		this.getSupportActionBar().show();
+    	}
+    }
+    
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -204,19 +224,19 @@ public class StartScreen extends ActionBarActivity implements FragmentDisplayer{
     
     private void displayView(int position) {
     	// fix position to valid value
-    	position = Math.max(0, Math.min(fragments.length, position));
-    	
-        // update selected item and title, then close the drawer
-        mDrawerList.setItemChecked(position, true);
-        mDrawerList.setSelection(position);
-        setTitle(navMenuTitles[position]);
-        navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
-        setIcon(navMenuIcons.getResourceId(position, -1));
-        navMenuIcons.recycle();
-        mDrawerLayout.closeDrawer(mDrawerList);
-    	
-        // update the main content by replacing fragments
-        displayFragment(fragments[position]);
+	    position = Math.max(0, Math.min(fragments.length, position));
+	    
+	    // update selected item and title, then close the drawer
+	    mDrawerList.setItemChecked(position, true);
+	    mDrawerList.setSelection(position);
+	    setTitle(navMenuTitles[position]);
+	    navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
+	    setIcon(navMenuIcons.getResourceId(position, -1));
+	    navMenuIcons.recycle();
+	    mDrawerLayout.closeDrawer(mDrawerList);
+	    
+	    // update the main content by replacing fragments
+	    displayFragment(fragments[position]);
     }
  
     public void displayFragment(Fragment fragment){

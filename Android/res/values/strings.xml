@@ -21,6 +21,33 @@
     <string name="sag_member_age_default">XX år</string>
     <string name="sag_age_unity">år</string>
     
+    <string name="contest_header">Veckans tävling!</string>
+    <string name="contest_time_info">OBS! Din svarstid spelar roll!</string>
+    <string name="contest_theme_label">Tema:</string>
+    <string name="contest_theme_value">[Tema]</string>
+    <string name="contest_price_label">Pris:</string>
+    <string name="contest_price_value">[Pris]</string>
+    <string name="contest_ending_label">Gäller till:</string>
+    <string name="contest_ending_value">YYYY-MM-DD HH:MM</string>
+    <string name="contest_start_label">Starta tävling</string>
+    <string name="contest_error404">Det finns ingen tävling för stunden!</string>
+    <string name="contest_question">Fråga</string>
+    <string name="contest_question_header">Fråga x</string>
+    <string name="contest_next">Nästa fråga</string>
+    <string name="contest_option">Alternativ</string>
+    <string name="contest_freetext_value">Svar</string>
+    <string name="contest_userdata_header">Skicka resultat</string>
+    <string name="contest_userdata_info">Ange ditt namn och nummer för att vi ska kunna kontakta dig om du vinner.</string>
+    <string name="contest_userdata_name_label">Namn:</string>
+    <string name="contest_userdata_name_value">Sven Svensson</string>
+    <string name="contest_userdata_phone_label">Telefon:</string>
+    <string name="contest_userdata_phone_value">0725-867290</string>
+    <string name="contest_userdata_submit">Skicka</string>
+    <string name="contest_credits_header">Tävlingen slutförd!</string>
+    <string name="contest_credits_info">Dina svar har nu skickats för rättning! Resultatet kommer att publiceras på Istället och du kommer bli kontaktad om du vunnit!\nLycka till!</string>
+    <string name="contest_credits_header_fail">Tävlingen slut men fel uppstod!</string>
+    <string name="contest_credits_info_fail">Du har nu besvarat alla frågor! Det uppstod dock problem när ditt resultat skulle synkas mot servern. Vänligen se till att du har en aktiv anslutning till internet och starta om appen för att synka.</string>
+    
     <string name="contact_image">Kontaktbild</string>
     <string name="contact_name_default">Kontaktens namn</string>
     <string name="contact_phone_default">Inget tel.nummer</string>

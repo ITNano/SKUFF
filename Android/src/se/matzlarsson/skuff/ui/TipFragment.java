@@ -1,8 +1,7 @@
 package se.matzlarsson.skuff.ui;
 
 import se.matzlarsson.skuff.R;
-import se.matzlarsson.skuff.database.DataSyncer;
-import se.matzlarsson.skuff.database.ResourceSyncer;
+import se.matzlarsson.skuff.database.Syncer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -28,10 +27,7 @@ public class TipFragment extends Fragment {
 		   	button.setOnClickListener(new OnClickListener(){
 		   		@Override
 		   		public void onClick(View view){
-		   			DataSyncer syncer = DataSyncer.getInstance((ActionBarActivity)getActivity());
-		   			syncer.execute();
-		   			ResourceSyncer resSyncer = ResourceSyncer.getInstance((ActionBarActivity)getActivity());
-		   			resSyncer.execute();
+		   			Syncer.startSync((ActionBarActivity)getActivity());
 		   		}
 		   	});
 	    }
