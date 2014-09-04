@@ -5,44 +5,40 @@ import java.util.Date;
 
 import se.matzlarsson.skuff.database.data.ResourceResult;
 import se.matzlarsson.skuff.database.data.ResourceResultDeserializer;
-import se.matzlarsson.skuff.ui.Refreshable;
 import android.database.Cursor;
-import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class ResourceSyncer extends AsyncTask<String, Void, ResourceResult>{
+public class ResourceSyncer{
 
 	private static ResourceSyncer instance = null;
 	private static final String SERVER_RESOURCES_URL = "http://skuff.host-ed.me/fetchresources.php";
 	
-	private ActionBarActivity activity = null;
+	private String internalMemoryPath = "";
 	private boolean working = false;
 	
-	private ResourceSyncer(ActionBarActivity activity){
-		this.activity = activity;
+	private ResourceSyncer(String internalMemoryPath){
+		this.internalMemoryPath = internalMemoryPath;
 	}
 	
-	public static ResourceSyncer getInstance(ActionBarActivity activity){
-		if(instance == null || instance.isCancelled() || !instance.isWorking()){
-			instance = new ResourceSyncer(activity);
+	public static ResourceSyncer getInstance(String internalMemoryPath){
+		if(instance == null || !instance.isWorking()){
+			instance = new ResourceSyncer(internalMemoryPath);
 		}
 		
 		return instance;
 	}
 	
-	@Override
-	protected ResourceResult doInBackground(String... params) {
+	public void perform() {
 		if(!this.isWorking()){
 			setWorking(true);
-			return fetchResources();
+			ResourceResult res = fetchResources();
+			loadedData(res);
+		}else{
+			failedLoadingData();
 		}
-		return null;
 	}
 	
 	private ResourceResult fetchResources(){
@@ -53,7 +49,7 @@ public class ResourceSyncer extends AsyncTask<String, Void, ResourceResult>{
 			gsonBuilder.registerTypeAdapter(ResourceResult.class, new ResourceResultDeserializer());
 			Gson gson = gsonBuilder.create();
 			ResourceResult res = gson.fromJson(reader, ResourceResult.class);
-			if(Downloader.download(activity.getApplicationContext(), res.getPaths(), IOUtil.PATH_LOCAL_RESOURCES)){
+			if(Downloader.download(internalMemoryPath, res.getPaths(), IOUtil.PATH_LOCAL_RESOURCES)){
 				Log.d("SKUFF", "Download successful");
 				saveUpdateTime();
 			}else{
@@ -64,23 +60,6 @@ public class ResourceSyncer extends AsyncTask<String, Void, ResourceResult>{
 			Log.e("Download", "Could not fetch resources");
 		}
 		return null;
-	}
-	
-	@Override
-	protected void onPostExecute(ResourceResult result){
-		if(result != null){
-			loadedData(result);
-			if(activity != null){
-				Fragment frag = activity.getSupportFragmentManager().findFragmentByTag("currentFragment");
-				if(frag instanceof Refreshable){
-					((Refreshable)frag).refresh();
-				}
-			}
-		}else{
-			failedLoadingData();
-		}
-		
-		setWorking(false);
 	}
 	
 	public boolean isWorking(){
@@ -112,11 +91,11 @@ public class ResourceSyncer extends AsyncTask<String, Void, ResourceResult>{
 	}
 	
 	public void loadedData(ResourceResult result){
-		Toast.makeText(this.activity, "Grabbed resources ("+result.getCount()+" items)", Toast.LENGTH_SHORT).show();
+		Log.d("SKUFF", "Grabbed resources ("+(result==null?"error":result.getCount()+" items)"));
 	}
 	
 	public void failedLoadingData(){
-		Toast.makeText(this.activity, "Failed to sync resources", Toast.LENGTH_SHORT).show();
+		Log.d("SKUFF", "Failed to sync resources");
 	}
 
 }

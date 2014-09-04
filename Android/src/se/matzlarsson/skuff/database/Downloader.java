@@ -10,7 +10,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
@@ -19,19 +18,19 @@ import android.util.Log;
 public class Downloader {
 
 	
-	public static boolean download(Context context, List<String> paths, String savePath){
+	public static boolean download(String basePath, List<String> paths, String savePath){
 		boolean status = true;
 		boolean tmp = false;
 		for(int i = 0; i<paths.size(); i++){
-			tmp = download(context, paths.get(i), savePath);
+			tmp = download(basePath, paths.get(i), savePath);
 			status = status && tmp;
 		}
 		
 		return status;
 	}
 	
-	public static boolean download(Context context, String path, String savePath){
-		savePath = context.getFilesDir().getAbsolutePath()+savePath;
+	public static boolean download(String basePath, String path, String savePath){
+		savePath = basePath+savePath;
 		Bitmap bmp = getBitmapFromHttp(path);
 		return saveBitmap(bmp, savePath, getFilename(path));
 	}

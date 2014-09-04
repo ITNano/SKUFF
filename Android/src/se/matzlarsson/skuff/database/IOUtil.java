@@ -41,7 +41,7 @@ public class IOUtil {
 				Log.e("SKUFF", "Server responded with status code: " + statusLine.getStatusCode());
 			}
 		} catch(Exception ex) {
-			Log.e("SKUFF", "Failed to send HTTP POST request due to: " + ex + "\n" + java.util.Arrays.toString(ex.getStackTrace()));
+			Log.e("SKUFF", "Failed to send HTTP POST request due to: " + ex);
 		}
 		return null;
 	}

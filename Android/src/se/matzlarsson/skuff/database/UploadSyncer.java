@@ -6,10 +6,9 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import se.matzlarsson.skuff.ui.contest.ContestModel;
-import android.os.AsyncTask;
 import android.util.Log;
 
-public class UploadSyncer extends AsyncTask<String, Void, Void>{
+public class UploadSyncer{
 
 	private static UploadSyncer instance;
 	private boolean working;
@@ -33,11 +32,9 @@ public class UploadSyncer extends AsyncTask<String, Void, Void>{
 		this.working = working;
 	}
 	
-	@Override
-	protected Void doInBackground(String... params) {
+	public void perform(String path){
 		if(!this.isWorking()){
 			this.setWorking(true);
-			String path = params[0];
 			String filename = path+(path.endsWith("\\")||path.endsWith("/")?"":"/")+ContestModel.LOCAL_BACKUP_FILE;
 
 			File file = new File(filename);
@@ -69,7 +66,5 @@ public class UploadSyncer extends AsyncTask<String, Void, Void>{
 			
 			this.setWorking(false);
 		}
-
-		return null;
 	}
 }

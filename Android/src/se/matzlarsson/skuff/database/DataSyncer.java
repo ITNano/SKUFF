@@ -5,51 +5,46 @@ import java.util.Date;
 
 import se.matzlarsson.skuff.database.data.Result;
 import se.matzlarsson.skuff.database.data.ResultDeserializer;
-import se.matzlarsson.skuff.ui.Refreshable;
 import android.database.Cursor;
-import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class DataSyncer extends AsyncTask<String, Void, Result>{
+public class DataSyncer{
 
 	private static DataSyncer instance = null;
 	private static final String SERVER_URL = "http://skuff.host-ed.me/fetchdata.php";
 	
-	private ActionBarActivity activity = null;
 	private boolean working = false;
 	
-	private DataSyncer(ActionBarActivity activity){
-		this.activity = activity;
+	private DataSyncer(){
 	}
 	
-	public static DataSyncer getInstance(ActionBarActivity activity){
-		if(instance == null || instance.isCancelled() || !instance.isWorking()){
-			instance = new DataSyncer(activity);
+	public static DataSyncer getInstance(){
+		if(instance == null || !instance.isWorking()){
+			instance = new DataSyncer();
 		}
 		
 		return instance;
 	}
 	
-	@Override
-	protected Result doInBackground(String... params) {
+	public void perform() {
 		if(!this.isWorking()){
 			setWorking(true);
 			Result result = fetchData();
 			saveToDb(result);
-			return result;
+			loadedData(result);
+		}else{
+			Log.d("SKUFF", "dafuq - va");
+			failedLoadingData();
 		}
-		return null;
 	}
 	
 	private Result fetchData(){
 		try{
 			Reader reader = IOUtil.getReaderFromHttp(SERVER_URL+getPreviousFetch());
+			if(reader == null)Log.d("SKUFF", "Reader is null");
 			GsonBuilder gsonBuilder = new GsonBuilder();
 			gsonBuilder.setDateFormat("yyyy-MM-dd hh:mm:ss");
 			gsonBuilder.registerTypeAdapter(Result.class, new ResultDeserializer());
@@ -58,26 +53,9 @@ public class DataSyncer extends AsyncTask<String, Void, Result>{
 			reader.close();
 			return result;
 		} catch (Exception ex) {
-			Log.e("SKUFF", "Failed to parse JSON due to: " + ex);
+			Log.e("SKUFF", "Failed to parse JSON due to: " + ex.getMessage());
 		}
 		return null;
-	}
-	
-	@Override
-	protected void onPostExecute(Result result){
-		if(result != null){
-			loadedData(result);
-			if(activity != null){
-				Fragment frag = activity.getSupportFragmentManager().findFragmentByTag("currentFragment");
-				if(frag instanceof Refreshable){
-					((Refreshable)frag).refresh();
-				}
-			}
-		}else{
-			failedLoadingData();
-		}
-		
-		setWorking(false);
 	}
 	
 	public boolean isWorking(){
@@ -103,18 +81,20 @@ public class DataSyncer extends AsyncTask<String, Void, Result>{
 	}
 	
 	public void saveToDb(Result result){
-		DatabaseHelper db = DatabaseHelper.getInstance();
-		result.saveToDb(db);
-		DBTable table = DatabaseFactory.getTable(DatabaseFactory.TABLE_UPDATES);
-		db.insertOrUpdateQuery(table, new String[]{"1", DateUtil.dateToString(new Date())});
+		if(result != null){
+			DatabaseHelper db = DatabaseHelper.getInstance();
+			result.saveToDb(db);
+			DBTable table = DatabaseFactory.getTable(DatabaseFactory.TABLE_UPDATES);
+			db.insertOrUpdateQuery(table, new String[]{"1", DateUtil.dateToString(new Date())});
+		}
 	}
 	
 	public void loadedData(Result result){
-		Toast.makeText(this.activity, "Grabbed data ("+result.getUpdatesInfo()+")", Toast.LENGTH_SHORT).show();
+		Log.d("SKUFF", "Grabbed data ("+(result==null?"error":result.getUpdatesInfo())+")");
 	}
 	
 	public void failedLoadingData(){
-		Toast.makeText(this.activity, "Failed to sync data", Toast.LENGTH_SHORT).show();
+		Log.d("SKUFF", "Failed to sync data");
 	}
 
 }

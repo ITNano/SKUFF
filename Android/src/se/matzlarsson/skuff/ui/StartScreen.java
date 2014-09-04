@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import se.matzlarsson.skuff.R;
 import se.matzlarsson.skuff.database.DatabaseHelper;
+import se.matzlarsson.skuff.database.Syncer;
 import se.matzlarsson.skuff.nav.NavDrawerItem;
 import se.matzlarsson.skuff.nav.NavDrawerListAdapter;
 import se.matzlarsson.skuff.ui.calender.CalenderFragment;
@@ -12,6 +13,10 @@ import se.matzlarsson.skuff.ui.contest.ContestFragment;
 import se.matzlarsson.skuff.ui.groups.GroupsFragment;
 import se.matzlarsson.skuff.ui.news.NewsFragment;
 import se.matzlarsson.skuff.ui.sag.SagFragment;
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -37,6 +42,9 @@ public class StartScreen extends ActionBarActivity implements FragmentDisplayer{
 	public static final String FRAGMENT_SAG = "sag";
 	public static final String FRAGMENT_TIP = "tip";
 	public static final String FRAGMENT_CONTACT = "contact";
+	private static final int SYNCTIME_MINUTES = 1;
+	
+	private static Account account;
 	
 	private boolean menuDisabled = false;
 	
@@ -82,6 +90,8 @@ public class StartScreen extends ActionBarActivity implements FragmentDisplayer{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DatabaseHelper.start(this);
+        //setupSync();
+        new Syncer(this, true).startSync();
         
         fragments = new Fragment[7];
         fragmentNames = new String[7];
@@ -262,4 +272,35 @@ public class StartScreen extends ActionBarActivity implements FragmentDisplayer{
 		}
 		Toast.makeText(this, "Hittade inte den efterfrågade skärmen", Toast.LENGTH_SHORT).show();
 	}
+	
+	
+	
+	private void setupSync(){
+		account = createSyncAccount(this.getApplicationContext());
+        startAutomaticSync();
+        manualSync();
+	}
+	
+	public static Account createSyncAccount(Context context) {
+        Account account = new Account("Matz", "se.matzlarsson.skuff.database");
+        AccountManager accountManager = (AccountManager) context.getSystemService(ACCOUNT_SERVICE);
+
+        if (!accountManager.addAccountExplicitly(account, null, null)) {
+            Log.d("Error?", "An error(?) occured while creating account. It may already exist.");
+        }
+        
+        return account;
+    }
+	
+	public void startAutomaticSync(){
+		ContentResolver.addPeriodicSync(account, "se.matzlarsson.skuff.database", Bundle.EMPTY, 60L*SYNCTIME_MINUTES);
+	}
+	
+	public static void manualSync(){
+		Bundle settings = new Bundle();
+		settings.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+		settings.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+		ContentResolver.requestSync(account, "se.matzlarsson.skuff.database", settings);
+	}
+
 }
