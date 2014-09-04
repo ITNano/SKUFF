@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import se.matzlarsson.skuff.R;
 import se.matzlarsson.skuff.database.DatabaseHelper;
-import se.matzlarsson.skuff.database.Syncer;
 import se.matzlarsson.skuff.nav.NavDrawerItem;
 import se.matzlarsson.skuff.nav.NavDrawerListAdapter;
 import se.matzlarsson.skuff.ui.calender.CalenderFragment;
@@ -90,8 +89,7 @@ public class StartScreen extends ActionBarActivity implements FragmentDisplayer{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DatabaseHelper.start(this);
-        //setupSync();
-        new Syncer(this, true).startSync();
+        setupSync();
         
         fragments = new Fragment[7];
         fragmentNames = new String[7];
@@ -277,8 +275,8 @@ public class StartScreen extends ActionBarActivity implements FragmentDisplayer{
 	
 	private void setupSync(){
 		account = createSyncAccount(this.getApplicationContext());
-        startAutomaticSync();
         manualSync();
+        startAutomaticSync();
 	}
 	
 	public static Account createSyncAccount(Context context) {
@@ -293,6 +291,7 @@ public class StartScreen extends ActionBarActivity implements FragmentDisplayer{
     }
 	
 	public void startAutomaticSync(){
+		ContentResolver.setSyncAutomatically(account, "se.matzlarsson.skuff.database", true);
 		ContentResolver.addPeriodicSync(account, "se.matzlarsson.skuff.database", Bundle.EMPTY, 60L*SYNCTIME_MINUTES);
 	}
 	

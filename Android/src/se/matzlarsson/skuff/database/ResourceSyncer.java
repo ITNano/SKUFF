@@ -36,6 +36,7 @@ public class ResourceSyncer{
 			setWorking(true);
 			ResourceResult res = fetchResources();
 			loadedData(res);
+			setWorking(false);
 		}else{
 			failedLoadingData();
 		}
@@ -50,7 +51,7 @@ public class ResourceSyncer{
 			Gson gson = gsonBuilder.create();
 			ResourceResult res = gson.fromJson(reader, ResourceResult.class);
 			if(Downloader.download(internalMemoryPath, res.getPaths(), IOUtil.PATH_LOCAL_RESOURCES)){
-				Log.d("SKUFF", "Download successful");
+				Log.d("SKUFF", "ResourceSyncer: Download successful (saved "+res.getCount()+" resources)");
 				saveUpdateTime();
 			}else{
 				Log.d("SKUFF", "Download failed");
@@ -91,11 +92,11 @@ public class ResourceSyncer{
 	}
 	
 	public void loadedData(ResourceResult result){
-		Log.d("SKUFF", "Grabbed resources ("+(result==null?"error":result.getCount()+" items)"));
+		Log.d("SKUFF", "ResourceSyncer: Grabbed resources ("+(result==null?"error":result.getCount()+" items)"));
 	}
 	
 	public void failedLoadingData(){
-		Log.d("SKUFF", "Failed to sync resources");
+		Log.d("SKUFF", "ResourceSyncer: Failed to sync resources");
 	}
 
 }

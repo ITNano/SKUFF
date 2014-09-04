@@ -35,8 +35,8 @@ public class DataSyncer{
 			Result result = fetchData();
 			saveToDb(result);
 			loadedData(result);
+			setWorking(false);
 		}else{
-			Log.d("SKUFF", "dafuq - va");
 			failedLoadingData();
 		}
 	}
@@ -90,11 +90,11 @@ public class DataSyncer{
 	}
 	
 	public void loadedData(Result result){
-		Log.d("SKUFF", "Grabbed data ("+(result==null?"error":result.getUpdatesInfo())+")");
+		Log.d("SKUFF", "DataSyncer: Grabbed data ("+(result==null?"error":result.getUpdatesInfo())+")");
 	}
 	
 	public void failedLoadingData(){
-		Log.d("SKUFF", "Failed to sync data");
+		Log.d("SKUFF", "DataSyncer: Failed to sync data");
 	}
 
 }

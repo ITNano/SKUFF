@@ -6,6 +6,7 @@ import android.content.ContentProviderClient;
 import android.content.Context;
 import android.content.SyncResult;
 import android.os.Bundle;
+import android.util.Log;
 
 public class Syncer extends AbstractThreadedSyncAdapter{
 	
@@ -18,6 +19,7 @@ public class Syncer extends AbstractThreadedSyncAdapter{
 	}
 
 	public void startSync(){
+		Log.d("SKUFF", "Starting sync...");
 		DatabaseHelper.start(this.context);
 		DataSyncer syncer = DataSyncer.getInstance();
 		syncer.perform();
