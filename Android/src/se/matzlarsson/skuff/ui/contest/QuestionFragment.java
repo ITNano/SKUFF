@@ -4,7 +4,6 @@ import se.matzlarsson.skuff.R;
 import se.matzlarsson.skuff.database.data.contest.ContestQuestion;
 import se.matzlarsson.skuff.database.data.contest.FreeTextQuestion;
 import se.matzlarsson.skuff.database.data.contest.OptionQuestion;
-import se.matzlarsson.skuff.ui.Refreshable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,7 +14,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
  
-public class QuestionFragment extends Fragment implements Refreshable {
+public class QuestionFragment extends Fragment{
 
 	private static long startTime;
 	
@@ -57,11 +56,6 @@ public class QuestionFragment extends Fragment implements Refreshable {
 
     	return view;
     }
-
-	@Override
-	public void refresh() {
-		// TODO Auto-generated method stub
-	}
 	
 	public static void startTimer(){
 		startTime = System.currentTimeMillis();

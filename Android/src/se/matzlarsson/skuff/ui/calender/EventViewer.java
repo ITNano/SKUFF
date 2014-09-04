@@ -6,7 +6,6 @@ import se.matzlarsson.skuff.R;
 import se.matzlarsson.skuff.database.DatabaseFetcher;
 import se.matzlarsson.skuff.database.data.event.EventInfo;
 import se.matzlarsson.skuff.ui.FragmentDisplayer;
-import se.matzlarsson.skuff.ui.Refreshable;
 import se.matzlarsson.skuff.ui.StartScreen;
 import android.content.Context;
 import android.os.Bundle;
@@ -18,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
-public class EventViewer extends Fragment implements Refreshable{
+public class EventViewer extends Fragment{
 
 	private Context context;
 	private Date date;
@@ -51,11 +50,6 @@ public class EventViewer extends Fragment implements Refreshable{
     	
     	return view;
     }
-
-	@Override
-	public void refresh() {
-		updateData();
-	}
 	
 	public void goBack(){
 		if(getActivity() instanceof FragmentDisplayer){

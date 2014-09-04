@@ -249,9 +249,6 @@ public class StartScreen extends ActionBarActivity implements FragmentDisplayer{
  
     public void displayFragment(Fragment fragment){
         if (fragment != null) {
-            if(fragment instanceof Refreshable){
-            	((Refreshable)fragment).refresh();
-            }
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.frame_container, fragment, "currentFragment").commit();
             

@@ -2,7 +2,6 @@ package se.matzlarsson.skuff.ui.contest;
 
 import se.matzlarsson.skuff.R;
 import se.matzlarsson.skuff.database.DatabaseFetcher;
-import se.matzlarsson.skuff.ui.Refreshable;
 import se.matzlarsson.skuff.ui.StartScreen;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,7 +13,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
  
-public class ContestFragment extends Fragment implements Refreshable {
+public class ContestFragment extends Fragment{
 	
 	private static ContestModel model;
 	private static StartScreen app;
@@ -59,12 +58,6 @@ public class ContestFragment extends Fragment implements Refreshable {
     	
     	return view;
     }
-
-	@Override
-	public void refresh() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	public void startContest(){
 		app.setMenuDisabled(true);

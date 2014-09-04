@@ -3,7 +3,6 @@ package se.matzlarsson.skuff.ui.groups;
 import se.matzlarsson.skuff.R;
 import se.matzlarsson.skuff.database.DatabaseFetcher;
 import se.matzlarsson.skuff.ui.FragmentDisplayer;
-import se.matzlarsson.skuff.ui.Refreshable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,7 +13,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
  
-public class GroupsFragment extends Fragment implements Refreshable {
+public class GroupsFragment extends Fragment{
      
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,10 +34,4 @@ public class GroupsFragment extends Fragment implements Refreshable {
     	
     	return view;
     }
-
-	@Override
-	public void refresh() {
-		// TODO Auto-generated method stub
-		
-	}
 }

@@ -8,14 +8,13 @@ import se.matzlarsson.skuff.R;
 import se.matzlarsson.skuff.database.DatabaseFetcher;
 import se.matzlarsson.skuff.database.data.event.Event;
 import se.matzlarsson.skuff.ui.FragmentDisplayer;
-import se.matzlarsson.skuff.ui.Refreshable;
 import android.os.Bundle;
 import android.view.View;
 
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
  
-public class CalenderFragment extends CaldroidFragment implements Refreshable {
+public class CalenderFragment extends CaldroidFragment{
 
 	private HashMap<Date, Integer> eventDates;
 	
@@ -46,14 +45,5 @@ public class CalenderFragment extends CaldroidFragment implements Refreshable {
 		for(int i = 0; i<events.size(); i++){
 			eventDates.put(events.get(i).getDate(), R.color.calender_event_date);
 		}
-	}
-	
-	@Override
-	public void refresh() {
-		initEventDates();
-		
-		//Refresh the view
-		setBackgroundResourceForDates(eventDates);
-		this.refreshView();
 	}
 }

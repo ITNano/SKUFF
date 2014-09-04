@@ -2,7 +2,6 @@ package se.matzlarsson.skuff.ui.contact;
 
 import se.matzlarsson.skuff.R;
 import se.matzlarsson.skuff.database.DatabaseFetcher;
-import se.matzlarsson.skuff.ui.Refreshable;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
  
-public class ContactFragment extends Fragment implements Refreshable {
+public class ContactFragment extends Fragment{
      
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -24,12 +23,6 @@ public class ContactFragment extends Fragment implements Refreshable {
     
     	return view;
     }
-
-	@Override
-	public void refresh() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	public void sendMail(String emailAddress){
 		Intent mail = new Intent(Intent.ACTION_SEND);
