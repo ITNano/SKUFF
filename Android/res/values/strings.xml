@@ -53,6 +53,13 @@
     <string name="contact_phone_default">Inget tel.nummer</string>
     <string name="contact_mail_default">Ingen mail</string>
     <string name="contact_mail_header">Välj mail-klient</string>
+    
+    <string name="notification_contest_title">En ny tävling!</string>
+    <string name="notification_event_title_created">Ett evenemang har skapats!</string>
+    <string name="notification_event_title_updated">Ett evenemang har uppdaterats!</string>
+    <string name="notification_news_title">Det har kommit en nyhet!</string>
+    <string name="notification_group_title_created">En ny grupp har skapats!</string>
+    <string name="notification_group_title_updated">En ny grupp har skapats!</string>
 
     <string-array name="nav_drawer_items">
         <item>Nyheter</item>

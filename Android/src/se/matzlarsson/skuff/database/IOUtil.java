@@ -24,6 +24,7 @@ public class IOUtil {
 	public static final String PATH_LOCAL_RESOURCES = "/resources/";
 
 	public static Reader getReaderFromHttp(String webpage){
+		Log.d("SKUFF", "Attempting to read "+webpage);
 		try {
 			//Create an HTTP client
 			HttpClient client = new DefaultHttpClient();

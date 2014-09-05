@@ -1,5 +1,6 @@
 package se.matzlarsson.skuff.database;
 
+import se.matzlarsson.skuff.ui.StartScreen;
 import android.accounts.Account;
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
@@ -10,17 +11,22 @@ import android.util.Log;
 
 public class Syncer extends AbstractThreadedSyncAdapter{
 	
-	private Context context;
+	private static Context context;
 	
 	public Syncer(Context context, boolean autoInitialize){
 		super(context, autoInitialize);
 		
-		this.context = context;
+		Syncer.context = context;
+		Notification.setMainActivity(StartScreen.class);
+	}
+	
+	public static Context getNofificationContext(){
+		return context;
 	}
 
 	public void startSync(){
 		Log.d("SKUFF", "Starting sync...");
-		DatabaseHelper.start(this.context);
+		DatabaseHelper.start(context);
 		DataSyncer syncer = DataSyncer.getInstance();
 		syncer.perform();
 		ResourceSyncer resSyncer = ResourceSyncer.getInstance(context.getFilesDir().getAbsolutePath());

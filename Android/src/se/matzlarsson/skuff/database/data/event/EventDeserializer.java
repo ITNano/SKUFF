@@ -2,6 +2,13 @@ package se.matzlarsson.skuff.database.data.event;
 
 import java.lang.reflect.Type;
 
+import se.matzlarsson.skuff.R;
+import se.matzlarsson.skuff.database.Notification;
+import se.matzlarsson.skuff.database.Syncer;
+import se.matzlarsson.skuff.database.data.NotificationConstants;
+import se.matzlarsson.skuff.ui.StartScreen;
+import android.content.Context;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -27,6 +34,13 @@ public class EventDeserializer implements JsonDeserializer<Event[]> {
 			event.setCompulsory(obj.get("compulsory").getAsBoolean());
 			event.setTime(obj.get("time").getAsString());
 			allEvents[i] = event;
+			
+			if(obj.get("notification") != null){
+				Context c = Syncer.getNofificationContext();
+				String content = obj.get("notification").getAsString();
+				String title = c.getResources().getString(R.string.notification_event_title_created);
+				Notification.addNotification(c, NotificationConstants.NOTIFICATION_EVENT, title, content, StartScreen.FRAGMENT_CALENDER);
+			}
 		}
 		return allEvents;
 	}

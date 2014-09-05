@@ -2,6 +2,13 @@ package se.matzlarsson.skuff.database.data.contest;
 
 import java.lang.reflect.Type;
 
+import se.matzlarsson.skuff.R;
+import se.matzlarsson.skuff.database.Notification;
+import se.matzlarsson.skuff.database.Syncer;
+import se.matzlarsson.skuff.database.data.NotificationConstants;
+import se.matzlarsson.skuff.ui.StartScreen;
+import android.content.Context;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -27,6 +34,13 @@ public class ContestDeserializer implements JsonDeserializer<Contest[]>{
 			tmp.setEndDate(obj.get("ends").getAsString());
 			tmp.setTime(obj.get("time").getAsString());
 			contests[i] = tmp;
+			
+			if(obj.get("notification") != null){
+				Context c = Syncer.getNofificationContext();
+				String content = obj.get("notification").getAsString();
+				String title = c.getResources().getString(R.string.notification_contest_title);
+				Notification.addNotification(c, NotificationConstants.NOTIFICATION_CONTEST, title, content, StartScreen.FRAGMENT_CONTEST);
+			}
 		}
 		
 		return contests;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import se.matzlarsson.skuff.R;
 import se.matzlarsson.skuff.database.DatabaseHelper;
+import se.matzlarsson.skuff.database.Notification;
 import se.matzlarsson.skuff.nav.NavDrawerItem;
 import se.matzlarsson.skuff.nav.NavDrawerListAdapter;
 import se.matzlarsson.skuff.ui.calender.CalenderFragment;
@@ -16,6 +17,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -90,6 +92,7 @@ public class StartScreen extends ActionBarActivity implements FragmentDisplayer{
         super.onCreate(savedInstanceState);
         DatabaseHelper.start(this);
         setupSync();
+        Notification.setMainActivity(this.getClass());
         
         fragments = new Fragment[7];
         fragmentNames = new String[7];
@@ -147,13 +150,18 @@ public class StartScreen extends ActionBarActivity implements FragmentDisplayer{
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
  
-        if (savedInstanceState == null) {
-            // on first time display view for first nav item
+        Intent intent = getIntent();
+        boolean fromNotification = intent.getExtras()!=null && intent.getBooleanExtra("fromNotification", false);
+        if(fromNotification){
+        	String fragment = intent.getStringExtra("fragment");
+        	if(!displayFragment(fragment)){
+        		displayView(0);
+        	}
+        }else if (savedInstanceState == null) {
             displayView(0);
         }
-        
-        mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
     }
  
     @Override
@@ -258,14 +266,15 @@ public class StartScreen extends ActionBarActivity implements FragmentDisplayer{
     }
     
 	@Override
-	public void displayFragment(String s) {
+	public boolean displayFragment(String s) {
 		for(int i = 0; i<fragmentNames.length; i++){
 			if(fragmentNames[i].equals(s)){
 				displayView(i);
-				return;
+				return true;
 			}
 		}
 		Toast.makeText(this, "Hittade inte den efterfrågade skärmen", Toast.LENGTH_SHORT).show();
+		return false;
 	}
 	
 	

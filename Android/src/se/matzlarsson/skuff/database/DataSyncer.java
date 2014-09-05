@@ -49,6 +49,7 @@ public class DataSyncer{
 			gsonBuilder.setDateFormat("yyyy-MM-dd hh:mm:ss");
 			gsonBuilder.registerTypeAdapter(Result.class, new ResultDeserializer());
 			Gson gson = gsonBuilder.create();
+			Log.d("SKUFF", "men hit?");
 			Result result = gson.fromJson(reader, Result.class);
 			reader.close();
 			return result;
