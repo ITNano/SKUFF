@@ -5,6 +5,7 @@ import se.matzlarsson.skuff.database.data.contest.ContestQuestion;
 import se.matzlarsson.skuff.database.data.contest.FreeTextQuestion;
 import se.matzlarsson.skuff.database.data.contest.OptionQuestion;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +18,12 @@ import android.widget.TextView;
 public class QuestionFragment extends Fragment{
 
 	private static long startTime;
+	private static QuestionFragment currentQuestion;
 	
 	private ContestQuestion question;
 	private int index;
+	private TextView counter;
+	private CountDownTimer counterTimer;
 	
 	public QuestionFragment(ContestQuestion question, int index){
 		this.question = question;
@@ -34,6 +38,7 @@ public class QuestionFragment extends Fragment{
     	TextView q = (TextView)view.findViewById(R.id.contest_question);
     	final ListView answers = (ListView)view.findViewById(R.id.contest_answers);
     	Button submit = (Button)view.findViewById(R.id.contest_submit_question);
+    	counter = (TextView)view.findViewById(R.id.contest_counter);
     	
     	header.setText(getResources().getString(R.string.contest_question)+" "+index);
     	q.setText(question.getQuestion());
@@ -52,13 +57,33 @@ public class QuestionFragment extends Fragment{
     		});
     	}
     	
-    	startTimer();
+    	startTimer(this);
 
     	return view;
     }
 	
-	public static void startTimer(){
+	public static void startTimer(QuestionFragment q){
+		currentQuestion = q;
 		startTime = System.currentTimeMillis();
+		final TextView view = q.counter;
+		q.counterTimer = new CountDownTimer(60000, 60){
+			@Override
+			public void onTick(long millisLeft) {
+				int elapsed = QuestionFragment.getElapsedTime()/10;
+				int seconds = (int)(elapsed/100);
+				int hundredth = elapsed%100;
+				view.setText(seconds+"."+(hundredth==0?"00":(hundredth<10?"0"+hundredth:hundredth))+" s");
+			}
+
+			@Override
+			public void onFinish() {
+				view.setText("Done");
+			}
+		}.start();
+	}
+	
+	public static void endTimer(){
+		currentQuestion.counterTimer.cancel();
 	}
 	
 	protected static int getElapsedTime(){

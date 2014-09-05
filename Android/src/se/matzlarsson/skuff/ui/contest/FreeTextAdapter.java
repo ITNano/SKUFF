@@ -7,6 +7,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -50,6 +51,8 @@ public class FreeTextAdapter extends BaseAdapter{
 	
 	public void submit(ListView parentView){
 		FreeTextAnswer answer = new FreeTextAnswer(question.getId(), QuestionFragment.getElapsedTime());
+		InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+    	
 		String tmp = null;
 		View tmpView = null;
 		for(int i = 0; i<parentView.getChildCount(); i++){
@@ -58,10 +61,12 @@ public class FreeTextAdapter extends BaseAdapter{
 				tmp = ((EditText)tmpView).getText().toString();
 				if(tmp!=null && tmp.length()>0){
 					answer.addAnswer(tmp);
+					imm.hideSoftInputFromWindow(((EditText)tmpView).getWindowToken(), 0);
 				}
 			}
 		}
 		
+		QuestionFragment.endTimer();
 		ContestFragment.nextStep(answer);
 	}
 

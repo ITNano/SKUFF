@@ -33,6 +33,7 @@
     <string name="contest_error404">Det finns ingen tävling för stunden!</string>
     <string name="contest_question">Fråga</string>
     <string name="contest_question_header">Fråga x</string>
+    <string name="contest_counter">0.00 s</string>
     <string name="contest_next">Nästa fråga</string>
     <string name="contest_option">Alternativ</string>
     <string name="contest_freetext_value">Svar</string>

@@ -35,5 +35,14 @@
         android:gravity="center_horizontal"
         android:text="@string/contest_next" />
     
+    <TextView android:id="@+id/contest_counter"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/contest_counter"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:text="@string/contest_counter" />"
+    
 
 </LinearLayout>

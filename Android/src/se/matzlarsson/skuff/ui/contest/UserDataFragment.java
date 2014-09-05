@@ -1,12 +1,14 @@
 package se.matzlarsson.skuff.ui.contest;
 
 import se.matzlarsson.skuff.R;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -31,6 +33,10 @@ public class UserDataFragment extends Fragment{
     public void submit(View view){
     	EditText name = (EditText)view.findViewById(R.id.contest_userdata_name_wrapper).findViewById(R.id.contest_userdata_name_value);
     	EditText phone = (EditText)view.findViewById(R.id.contest_userdata_phone_wrapper).findViewById(R.id.contest_userdata_phone_value);
+    	
+    	InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+    	imm.hideSoftInputFromWindow(name.getWindowToken(), 0);
+    	imm.hideSoftInputFromWindow(phone.getWindowToken(), 0);
     	
     	UserData data = new UserData(name.getText().toString(), phone.getText().toString());
     	ContestFragment.endContest(data);

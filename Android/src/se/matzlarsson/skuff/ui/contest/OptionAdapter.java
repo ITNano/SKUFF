@@ -65,7 +65,8 @@ public class OptionAdapter extends BaseAdapter{
 	public void submit(int optionID){
 		OptionAnswer answer = new OptionAnswer(question.getId(), QuestionFragment.getElapsedTime());
 		answer.setOptionID(optionID);
-		
+
+		QuestionFragment.endTimer();
 		ContestFragment.nextStep(answer);
 	}
 }
