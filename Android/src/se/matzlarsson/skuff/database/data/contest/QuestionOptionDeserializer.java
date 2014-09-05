@@ -2,6 +2,8 @@ package se.matzlarsson.skuff.database.data.contest;
 
 import java.lang.reflect.Type;
 
+import se.matzlarsson.skuff.database.data.StringUtil;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -24,7 +26,7 @@ public class QuestionOptionDeserializer implements
 			tmp = new QuestionOption();
 			tmp.setId(obj.get("id").getAsInt());
 			tmp.setQuestionID(obj.get("questionID").getAsInt());
-			tmp.setOption(obj.get("option").getAsString());
+			tmp.setOption(StringUtil.swedify(obj.get("option").getAsString()));
 			options[i] = tmp;
 		}
 		

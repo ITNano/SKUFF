@@ -1,12 +1,10 @@
 package se.matzlarsson.skuff.ui.news;
 
 import se.matzlarsson.skuff.R;
-import se.matzlarsson.skuff.database.DatabaseFetcher;
 import se.matzlarsson.skuff.database.DateUtil;
 import se.matzlarsson.skuff.database.data.news.News;
 import se.matzlarsson.skuff.ui.FragmentDisplayer;
 import se.matzlarsson.skuff.ui.StartScreen;
-import se.matzlarsson.skuff.ui.TextFormatter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -19,12 +17,12 @@ import android.widget.Toast;
 
 public class NewsDisplayFragment extends Fragment {
 
-	private String id;
+	private News news;
 	private FragmentDisplayer displayer;
 	
-	public NewsDisplayFragment(FragmentDisplayer displayer, String id){
+	public NewsDisplayFragment(FragmentDisplayer displayer, News news){
 		this.displayer = displayer;
-		this.id = id;
+		this.news = news;
 	}
 	
 	@Override
@@ -35,13 +33,7 @@ public class NewsDisplayFragment extends Fragment {
         TextView header = (TextView) view.findViewById(R.id.news_header);
         TextView content = (TextView) view.findViewById(R.id.news_content);
         TextView addInfo = (TextView) view.findViewById(R.id.news_additional_info);
-
-        //Setup typeface
-        TextFormatter.useCustomFont(getActivity(), header);
-        TextFormatter.useCustomFont(getActivity(), content);
-        TextFormatter.useCustomFont(getActivity(), addInfo);
         
-        News news = DatabaseFetcher.getNewsById(this.id);
         if(news != null){
 	        id.setText(news.getId()+"");
 	        header.setText(news.getHeader());    

@@ -39,6 +39,6 @@ public class NewsFragment extends Fragment{
     }
 	
 	public void showNews(String id){
-		this.displayer.displayFragment(new NewsDisplayFragment(displayer, id));
+		this.displayer.displayFragment(new NewsDisplayFragment(displayer, DatabaseFetcher.getNewsById(id)));
 	}
 }

@@ -2,6 +2,8 @@ package se.matzlarsson.skuff.database.data.user;
 
 import java.lang.reflect.Type;
 
+import se.matzlarsson.skuff.database.data.StringUtil;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -22,7 +24,7 @@ public class UserDeserializer implements JsonDeserializer<User[]> {
 			obj = arr.get(i).getAsJsonObject();
 			user = new User();
 			user.setId(obj.get("id").getAsInt());
-			user.setName(obj.get("name").getAsString());
+			user.setName(StringUtil.swedify(obj.get("name").getAsString()));
 			allUsers[i] = user;
 		}
 		return allUsers;

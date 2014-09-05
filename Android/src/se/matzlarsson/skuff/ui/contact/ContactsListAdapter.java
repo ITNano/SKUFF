@@ -2,7 +2,6 @@ package se.matzlarsson.skuff.ui.contact;
 
 import se.matzlarsson.skuff.R;
 import se.matzlarsson.skuff.database.IOUtil;
-import se.matzlarsson.skuff.database.data.StringUtil;
 import se.matzlarsson.skuff.database.data.contact.Contact;
 import android.app.Activity;
 import android.content.Context;
@@ -65,9 +64,9 @@ public class ContactsListAdapter extends BaseAdapter{
 			image.setImageBitmap(bmp);
 		}
 		
-		String contactName = StringUtil.swedify(contacts[position].getName());
+		String contactName = contacts[position].getName();
 		name.setText(contactName);
-		phone.setText(StringUtil.swedify(contacts[position].getPhone()));
+		phone.setText(contacts[position].getPhone());
 		if(contacts[position].hasMail()){
 			mail.setText("Maila "+contactName.split(" ")[0]);
 			final int currentPos = position;

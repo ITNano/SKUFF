@@ -6,7 +6,6 @@ import se.matzlarsson.skuff.database.DatabaseFactory;
 import se.matzlarsson.skuff.database.DatabaseHelper;
 import se.matzlarsson.skuff.database.DateUtil;
 import se.matzlarsson.skuff.database.data.Saveable;
-import se.matzlarsson.skuff.database.data.StringUtil;
 import android.database.Cursor;
 
 public class News implements Saveable{
@@ -79,7 +78,7 @@ public class News implements Saveable{
 	}
 
 	public void setHeader(String header) {
-		this.header = StringUtil.swedify(header);
+		this.header = header;
 	}
 
 	public String getContent() {
@@ -87,7 +86,7 @@ public class News implements Saveable{
 	}
 
 	public void setContent(String content) {
-		this.content = StringUtil.swedify(content);
+		this.content = content;
 	}
 
 	public Date getTime() {

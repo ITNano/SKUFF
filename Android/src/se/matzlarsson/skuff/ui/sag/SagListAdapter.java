@@ -2,7 +2,6 @@ package se.matzlarsson.skuff.ui.sag;
 
 import se.matzlarsson.skuff.R;
 import se.matzlarsson.skuff.database.IOUtil;
-import se.matzlarsson.skuff.database.data.StringUtil;
 import se.matzlarsson.skuff.database.data.sag.SAG;
 import android.app.Activity;
 import android.content.Context;
@@ -62,8 +61,8 @@ public class SagListAdapter extends BaseAdapter {
 			image.setImageBitmap(bmp);
 		}
 		
-		post.setText(StringUtil.swedify(sag[position].getPost()));
-		name.setText(StringUtil.swedify(sag[position].getName()));
+		post.setText(sag[position].getPost());
+		name.setText(sag[position].getName());
 		age.setText(sag[position].getAge()+" "+context.getResources().getString(R.string.sag_age_unity));
 		
 		return convertView;

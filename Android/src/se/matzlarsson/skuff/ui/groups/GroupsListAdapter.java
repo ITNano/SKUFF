@@ -1,11 +1,9 @@
 package se.matzlarsson.skuff.ui.groups;
 
 import se.matzlarsson.skuff.R;
-import se.matzlarsson.skuff.database.data.StringUtil;
 import se.matzlarsson.skuff.database.data.group.Group;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +51,7 @@ public class GroupsListAdapter extends BaseAdapter {
 		TextView name = (TextView)convertView.findViewById(R.id.group_name);
 		
 		id.setText(groups[position].getId()+"");
-		name.setText(StringUtil.swedify(groups[position].getName()));
+		name.setText(groups[position].getName());
 		
 		convertView.setBackgroundColor(context.getResources().getColor(colors[position%colors.length]));
         return convertView;

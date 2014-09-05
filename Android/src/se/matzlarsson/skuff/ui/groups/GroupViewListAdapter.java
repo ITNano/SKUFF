@@ -1,7 +1,6 @@
 package se.matzlarsson.skuff.ui.groups;
 
 import se.matzlarsson.skuff.R;
-import se.matzlarsson.skuff.database.data.StringUtil;
 import se.matzlarsson.skuff.database.data.group.GroupValue;
 import android.app.Activity;
 import android.content.Context;
@@ -50,8 +49,8 @@ public class GroupViewListAdapter extends BaseAdapter{
         TextView name = (TextView) convertView.findViewById(R.id.group_item_info_name);
         TextView value = (TextView) convertView.findViewById(R.id.group_item_info_value);
         
-        name.setText(StringUtil.swedify(values[position].getPropertyName()));
-        value.setText(StringUtil.swedify(values[position].getValue()));
+        name.setText(values[position].getPropertyName());
+        value.setText(values[position].getValue());
         
         return convertView;
 	}

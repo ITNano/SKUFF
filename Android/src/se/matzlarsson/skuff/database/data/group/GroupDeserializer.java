@@ -6,6 +6,7 @@ import se.matzlarsson.skuff.R;
 import se.matzlarsson.skuff.database.Notification;
 import se.matzlarsson.skuff.database.Syncer;
 import se.matzlarsson.skuff.database.data.NotificationConstants;
+import se.matzlarsson.skuff.database.data.StringUtil;
 import se.matzlarsson.skuff.ui.StartScreen;
 import android.content.Context;
 
@@ -18,6 +19,12 @@ import com.google.gson.JsonParseException;
 
 public class GroupDeserializer implements JsonDeserializer<Group[]> {
 
+	private boolean noNotifications = false;
+	
+	public GroupDeserializer(boolean noNotifications){
+		this.noNotifications = noNotifications;
+	}
+	
 	@Override
 	public Group[] deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
 		JsonArray arr = json.getAsJsonArray();
@@ -29,12 +36,12 @@ public class GroupDeserializer implements JsonDeserializer<Group[]> {
 			obj = arr.get(i).getAsJsonObject();
 			group = new Group();
 			group.setId(obj.get("id").getAsInt());
-			group.setName(obj.get("name").getAsString());
+			group.setName(StringUtil.swedify(obj.get("name").getAsString()));
 			allGroups[i] = group;
 			
-			if(obj.get("notification") != null){
+			if(obj.get("notification") != null && !noNotifications){
 				Context c = Syncer.getNofificationContext();
-				String content = obj.get("notification").getAsString();
+				String content = StringUtil.swedify(obj.get("notification").getAsString());
 				String title = c.getResources().getString(R.string.notification_group_title_created);
 				Notification.addNotification(c, NotificationConstants.NOTIFICATION_GROUP, title, content, StartScreen.FRAGMENT_GROUPS);
 			}

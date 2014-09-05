@@ -52,8 +52,8 @@ public class EventViewInfoListAdapter extends BaseAdapter{
         TextView value = (TextView) convertView.findViewById(R.id.event_item_info_value);
         
         EventValue val = eventValues[position];
-        header.setText(StringUtil.swedify(val.getPropertyName()));
-	    value.setText(StringUtil.swedify(val.getValue()));
+        header.setText(val.getPropertyName());
+	    value.setText(val.getValue());
         
         return convertView;
 	}

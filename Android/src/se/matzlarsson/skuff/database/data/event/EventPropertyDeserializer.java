@@ -2,6 +2,8 @@ package se.matzlarsson.skuff.database.data.event;
 
 import java.lang.reflect.Type;
 
+import se.matzlarsson.skuff.database.data.StringUtil;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -22,7 +24,7 @@ public class EventPropertyDeserializer implements JsonDeserializer<EventProperty
 			obj = arr.get(i).getAsJsonObject();
 			prop = new EventProperty();
 			prop.setId(obj.get("id").getAsInt());
-			prop.setName(obj.get("name").getAsString());
+			prop.setName(StringUtil.swedify(obj.get("name").getAsString()));
 			allProps[i] = prop;
 		}
 		return allProps;

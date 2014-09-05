@@ -2,6 +2,8 @@ package se.matzlarsson.skuff.database.data.contact;
 
 import java.lang.reflect.Type;
 
+import se.matzlarsson.skuff.database.data.StringUtil;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -22,8 +24,8 @@ public class ContactDeserializer implements JsonDeserializer<Contact[]>{
 			obj = arr.get(i).getAsJsonObject();
 			contact = new Contact();
 			contact.setId(obj.get("id").getAsInt());
-			contact.setName(obj.get("name").getAsString());
-			contact.setPhone(obj.get("phone").getAsString());
+			contact.setName(StringUtil.swedify(obj.get("name").getAsString()));
+			contact.setPhone(StringUtil.swedify(obj.get("phone").getAsString()));
 			contact.setMail(obj.get("mail").getAsString());
 			contact.setImageName(obj.get("image").getAsString());
 			contacts[i] = contact;

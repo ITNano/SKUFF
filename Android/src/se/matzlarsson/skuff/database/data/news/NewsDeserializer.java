@@ -6,6 +6,7 @@ import se.matzlarsson.skuff.R;
 import se.matzlarsson.skuff.database.Notification;
 import se.matzlarsson.skuff.database.Syncer;
 import se.matzlarsson.skuff.database.data.NotificationConstants;
+import se.matzlarsson.skuff.database.data.StringUtil;
 import se.matzlarsson.skuff.ui.StartScreen;
 import android.content.Context;
 
@@ -18,6 +19,12 @@ import com.google.gson.JsonParseException;
 
 public class NewsDeserializer implements JsonDeserializer<News[]>{
 
+	private boolean noNotifications = false;
+	
+	public NewsDeserializer(boolean noNotifications){
+		this.noNotifications = noNotifications;
+	}
+	
 	@Override
 	public News[] deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
 		JsonArray arr = json.getAsJsonArray();
@@ -30,14 +37,14 @@ public class NewsDeserializer implements JsonDeserializer<News[]>{
 			news = new News();
 			news.setId(obj.get("id").getAsInt());
 			news.setUserID(obj.get("userID").getAsInt());
-			news.setHeader(obj.get("header").getAsString());
-			news.setContent(obj.get("content").getAsString());
+			news.setHeader(StringUtil.swedify(obj.get("header").getAsString()));
+			news.setContent(StringUtil.swedify(obj.get("content").getAsString()));
 			news.setTime(obj.get("time").getAsString());
 			allNews[i] = news;
 			
-			if(obj.get("notification") != null){
+			if(obj.get("notification") != null && !noNotifications){
 				Context c = Syncer.getNofificationContext();
-				String content = obj.get("notification").getAsString();
+				String content = StringUtil.swedify(obj.get("notification").getAsString());
 				String title = c.getResources().getString(R.string.notification_news_title);
 				Notification.addNotification(c, NotificationConstants.NOTIFICATION_NEWS, title, content, StartScreen.FRAGMENT_NEWS);
 			}

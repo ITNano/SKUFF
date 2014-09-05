@@ -1,16 +1,13 @@
 package se.matzlarsson.skuff.ui.calender;
 
 import se.matzlarsson.skuff.R;
-import se.matzlarsson.skuff.database.data.StringUtil;
 import se.matzlarsson.skuff.database.data.event.Event;
 import se.matzlarsson.skuff.database.data.event.EventInfo;
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -56,9 +53,9 @@ public class EventViewListAdapter extends BaseAdapter{
         LinearLayout addInfo = (LinearLayout) convertView.findViewById(R.id.event_additional_info);
         
         Event event = events[position].getEvent();
-        name.setText(StringUtil.swedify(event.getName()));
+        name.setText(event.getName());
         if(event.isCompulsory()){
-        	compulsory.setText(StringUtil.swedify(convertView.getResources().getString(R.string.compulsory)));
+        	compulsory.setText(convertView.getResources().getString(R.string.compulsory));
         }else{
         	compulsory.setVisibility(View.GONE);
         	name.setPadding(name.getPaddingLeft(), name.getPaddingTop(), name.getPaddingRight(), name.getPaddingBottom()+5);

@@ -5,7 +5,6 @@ import java.util.Date;
 
 import se.matzlarsson.skuff.database.data.ResourceResult;
 import se.matzlarsson.skuff.database.data.ResourceResultDeserializer;
-import android.database.Cursor;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -71,14 +70,9 @@ public class ResourceSyncer{
 		this.working = working;
 	}
 	
-	
 	public String getPreviousFetch(){
-		DatabaseHelper db = DatabaseHelper.getInstance();
-		Cursor c = db.selectQuery("SELECT time FROM "+DatabaseFactory.TABLE_UPDATES+" WHERE _id=? LIMIT 1", new String[]{"2"});
-		if(c.getCount()>0){
-			c.moveToFirst();
-			String time = c.getString(c.getColumnIndex("time"));
-			long timestamp = DateUtil.stringToDate(time).getTime()/1000;
+		long timestamp = DatabaseFetcher.getPreviousFetch(DatabaseFetcher.PREVIOUS_FETCH_RESOURCE);
+		if(timestamp>0){
 			return "?prevFetch="+timestamp;
 		}else{
 			return "";
@@ -88,7 +82,7 @@ public class ResourceSyncer{
 	public void saveUpdateTime(){
 		DatabaseHelper db = DatabaseHelper.getInstance();
 		DBTable table = DatabaseFactory.getTable(DatabaseFactory.TABLE_UPDATES);
-		db.insertOrUpdateQuery(table, new String[]{"2", DateUtil.dateToString(new Date())});
+		db.insertOrUpdateQuery(table, new String[]{DatabaseFetcher.PREVIOUS_FETCH_RESOURCE+"", DateUtil.dateToString(new Date())});
 	}
 	
 	public void loadedData(ResourceResult result){

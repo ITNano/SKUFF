@@ -2,6 +2,8 @@ package se.matzlarsson.skuff.database.data.sag;
 
 import java.lang.reflect.Type;
 
+import se.matzlarsson.skuff.database.data.StringUtil;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -22,8 +24,8 @@ public class SAGDeserializer implements JsonDeserializer<SAG[]>{
 			obj = arr.get(i).getAsJsonObject();
 			member = new SAG();
 			member.setId(obj.get("id").getAsInt());
-			member.setName(obj.get("name").getAsString());
-			member.setPost(obj.get("post").getAsString());
+			member.setName(StringUtil.swedify(obj.get("name").getAsString()));
+			member.setPost(StringUtil.swedify(obj.get("post").getAsString()));
 			member.setBirth(obj.get("birth").getAsString());
 			member.setImageName(obj.get("image").getAsString());
 			member.setDisplayOrder(obj.get("displayOrder").getAsInt());

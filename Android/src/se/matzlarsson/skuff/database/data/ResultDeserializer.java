@@ -24,20 +24,26 @@ import com.google.gson.JsonParseException;
 
 public class ResultDeserializer implements JsonDeserializer<Result>{
 
+	private boolean noNotifications = false;
+	
+	public ResultDeserializer(boolean noNotifications){
+		this.noNotifications = noNotifications;
+	}
+	
 	@Override
 	public Result deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
 		JsonObject obj = json.getAsJsonObject();
 		Result result = new Result();
-		result.addData(new NewsDeserializer().deserialize(obj.get("news").getAsJsonArray(), type, context));
+		result.addData(new NewsDeserializer(noNotifications).deserialize(obj.get("news").getAsJsonArray(), type, context));
 		result.addData(new UserDeserializer().deserialize(obj.get("users").getAsJsonArray(), type, context));
-		result.addData(new EventDeserializer().deserialize(obj.get("events").getAsJsonArray(), type, context));
+		result.addData(new EventDeserializer(noNotifications).deserialize(obj.get("events").getAsJsonArray(), type, context));
 		result.addData(new EventPropertyDeserializer().deserialize(obj.get("eventproperties").getAsJsonArray(), type, context));
-		result.addData(new EventValueDeserializer().deserialize(obj.get("eventvalues").getAsJsonArray(), type, context));
-		result.addData(new GroupDeserializer().deserialize(obj.get("groups").getAsJsonArray(), type, context));
+		result.addData(new EventValueDeserializer(noNotifications).deserialize(obj.get("eventvalues").getAsJsonArray(), type, context));
+		result.addData(new GroupDeserializer(noNotifications).deserialize(obj.get("groups").getAsJsonArray(), type, context));
 		result.addData(new GroupPropertyDeserializer().deserialize(obj.get("groupproperties").getAsJsonArray(), type, context));
-		result.addData(new GroupValueDeserializer().deserialize(obj.get("groupvalues").getAsJsonArray(), type, context));
+		result.addData(new GroupValueDeserializer(noNotifications).deserialize(obj.get("groupvalues").getAsJsonArray(), type, context));
 		result.addData(new SAGDeserializer().deserialize(obj.get("sag").getAsJsonArray(), type, context));
-		result.addData(new ContestDeserializer().deserialize(obj.get("contests").getAsJsonArray(), type, context));
+		result.addData(new ContestDeserializer(noNotifications).deserialize(obj.get("contests").getAsJsonArray(), type, context));
 		result.addData(new ContestQuestionDeserializer().deserialize(obj.get("contestquestions").getAsJsonArray(), type, context));
 		result.addData(new QuestionOptionDeserializer().deserialize(obj.get("contestoptions").getAsJsonArray(), type, context));
 		result.addData(new ContactDeserializer().deserialize(obj.get("contacts").getAsJsonArray(), type, context));

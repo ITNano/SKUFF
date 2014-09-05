@@ -19,6 +19,21 @@ import android.database.Cursor;
 
 public class DatabaseFetcher {
 
+	public static final int PREVIOUS_FETCH_DATA = 1;
+	public static final int PREVIOUS_FETCH_RESOURCE = 2;
+
+	public static long getPreviousFetch(int id){
+		DatabaseHelper db = DatabaseHelper.getInstance();
+		Cursor c = db.selectQuery("SELECT time FROM "+DatabaseFactory.TABLE_UPDATES+" WHERE _id=? LIMIT 1", new String[]{id+""});
+		if(c.getCount()>0){
+			c.moveToFirst();
+			String time = c.getString(c.getColumnIndex("time"));
+			return DateUtil.stringToDate(time).getTime()/1000;
+		}else{
+			return -1;
+		}
+	}
+	
 	public static List<News> getAllNews(){
 		DatabaseHelper db = DatabaseHelper.getInstance();
 		String query = "SELECT N._id AS _id, N.uid AS uid, N.header AS header, N.content AS content, N.time AS time, U.name AS username FROM "+DatabaseFactory.TABLE_NEWS+" N LEFT JOIN "+DatabaseFactory.TABLE_USERS+" U ON N.uid = U._id ORDER BY time DESC";

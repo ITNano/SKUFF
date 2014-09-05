@@ -3,6 +3,7 @@ package se.matzlarsson.skuff.ui;
 import java.util.ArrayList;
 
 import se.matzlarsson.skuff.R;
+import se.matzlarsson.skuff.database.DatabaseFetcher;
 import se.matzlarsson.skuff.database.DatabaseHelper;
 import se.matzlarsson.skuff.database.Notification;
 import se.matzlarsson.skuff.nav.NavDrawerItem;
@@ -152,15 +153,24 @@ public class StartScreen extends ActionBarActivity implements FragmentDisplayer{
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
  
-        Intent intent = getIntent();
-        boolean fromNotification = intent.getExtras()!=null && intent.getBooleanExtra("fromNotification", false);
-        if(fromNotification){
-        	String fragment = intent.getStringExtra("fragment");
-        	if(!displayFragment(fragment)){
-        		displayView(0);
-        	}
-        }else if (savedInstanceState == null) {
-            displayView(0);
+        if(DatabaseFetcher.getPreviousFetch(DatabaseFetcher.PREVIOUS_FETCH_DATA)<=0){
+	    	do{
+	    		try{
+	    			Thread.sleep(100);
+	    		}catch(InterruptedException ite){}
+	    	}while(DatabaseFetcher.getPreviousFetch(DatabaseFetcher.PREVIOUS_FETCH_DATA)<=0);
+	    	displayView(0);
+        }else{
+	        Intent intent = getIntent();
+	        boolean fromNotification = intent.getExtras()!=null && intent.getBooleanExtra("fromNotification", false);
+	        if(fromNotification){
+	        	String fragment = intent.getStringExtra("fragment");
+	        	if(!displayFragment(fragment)){
+	        		displayView(0);
+	        	}
+	        }else if (savedInstanceState == null) {
+	            displayView(0);
+	        }
         }
     }
  

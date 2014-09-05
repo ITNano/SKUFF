@@ -38,7 +38,7 @@ public class GroupViewer extends Fragment{
     	View view = inflater.inflate(R.layout.group_item, container, false);
     	
     	TextView name = (TextView)view.findViewById(R.id.group_item_name);
-    	name.setText(StringUtil.swedify(group.getGroup().getName()));
+    	name.setText(group.getGroup().getName());
     	ListView list = (ListView)view.findViewById(R.id.group_additional_info);
     	list.setAdapter(new GroupViewListAdapter(context, group.getValues()));
     	

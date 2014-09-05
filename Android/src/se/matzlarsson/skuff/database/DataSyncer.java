@@ -5,7 +5,6 @@ import java.util.Date;
 
 import se.matzlarsson.skuff.database.data.Result;
 import se.matzlarsson.skuff.database.data.ResultDeserializer;
-import android.database.Cursor;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -43,13 +42,13 @@ public class DataSyncer{
 	
 	private Result fetchData(){
 		try{
-			Reader reader = IOUtil.getReaderFromHttp(SERVER_URL+getPreviousFetch());
+			String prevFetch = getPreviousFetch();
+			Reader reader = IOUtil.getReaderFromHttp(SERVER_URL+prevFetch);
 			if(reader == null)Log.d("SKUFF", "Reader is null");
 			GsonBuilder gsonBuilder = new GsonBuilder();
 			gsonBuilder.setDateFormat("yyyy-MM-dd hh:mm:ss");
-			gsonBuilder.registerTypeAdapter(Result.class, new ResultDeserializer());
+			gsonBuilder.registerTypeAdapter(Result.class, new ResultDeserializer(prevFetch.length()<=0));
 			Gson gson = gsonBuilder.create();
-			Log.d("SKUFF", "men hit?");
 			Result result = gson.fromJson(reader, Result.class);
 			reader.close();
 			return result;
@@ -69,12 +68,8 @@ public class DataSyncer{
 	
 	
 	public String getPreviousFetch(){
-		DatabaseHelper db = DatabaseHelper.getInstance();
-		Cursor c = db.selectQuery("SELECT time FROM "+DatabaseFactory.TABLE_UPDATES+" WHERE _id=? LIMIT 1", new String[]{"1"});
-		if(c.getCount()>0){
-			c.moveToFirst();
-			String time = c.getString(c.getColumnIndex("time"));
-			long timestamp = DateUtil.stringToDate(time).getTime()/1000;
+		long timestamp = DatabaseFetcher.getPreviousFetch(DatabaseFetcher.PREVIOUS_FETCH_DATA);
+		if(timestamp>0){
 			return "?prevFetch="+timestamp;
 		}else{
 			return "";
@@ -86,7 +81,7 @@ public class DataSyncer{
 			DatabaseHelper db = DatabaseHelper.getInstance();
 			result.saveToDb(db);
 			DBTable table = DatabaseFactory.getTable(DatabaseFactory.TABLE_UPDATES);
-			db.insertOrUpdateQuery(table, new String[]{"1", DateUtil.dateToString(new Date())});
+			db.insertOrUpdateQuery(table, new String[]{DatabaseFetcher.PREVIOUS_FETCH_DATA+"", DateUtil.dateToString(new Date())});
 		}
 	}
 	
