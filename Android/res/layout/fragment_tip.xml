@@ -2,31 +2,85 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-     
-    <TextView
-        android:id="@+id/txtLabel"
-         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textSize="16sp"
-        android:text="Tip View"/>
-     
-    <ImageView android:layout_width="wrap_content"
-        android:contentDescription="image"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtLabel"
-        android:src="@drawable/ic_tip"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
 
-    <Button
-        android:id="@+id/button1"
+    <Spinner
+        android:id="@+id/tip_subject_chooser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtLabel"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="73dp"
-        android:text="Start DB" />
-     
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/tip_subject_title"
+        android:entries="@array/tip_subjects"
+        android:prompt="@string/tip_subject_prompt" />
+
+    <TextView
+        android:id="@+id/tip_subject_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/tip_subject_chooser"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/tip_subject_title"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <CheckBox
+        android:id="@+id/tip_anonymous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tip_subject_chooser"
+        android:layout_below="@+id/tip_subject_chooser"
+        android:text="@string/tip_anonymous_title" />
+
+    <EditText
+        android:id="@+id/tip_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tip_anonymous"
+        android:layout_alignTop="@+id/tip_name_title"
+        android:ems="10"
+        android:inputType="textPersonName" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/tip_name_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tip_subject_title"
+        android:layout_below="@+id/tip_anonymous"
+        android:text="@string/tip_name_title"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/tip_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tip_message_title"
+        android:layout_alignRight="@+id/tip_name"
+        android:layout_below="@+id/tip_message_title"
+        android:ems="10"
+        android:hint="@string/tip_message_hint"
+        android:inputType="textMultiLine"
+        android:lines="6" />
+
+    <Button
+        android:id="@+id/tip_send_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tip_message"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="@string/tip_send_button" />
+
+    <TextView
+        android:id="@+id/tip_message_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tip_name_title"
+        android:layout_below="@+id/tip_name"
+        android:text="@string/tip_message_title"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
  
 </RelativeLayout>

@@ -49,6 +49,21 @@
     <string name="contest_credits_header_fail">Tävlingen slut men fel uppstod!</string>
     <string name="contest_credits_info_fail">Du har nu besvarat alla frågor! Det uppstod dock problem när ditt resultat skulle synkas mot servern. Vänligen se till att du har en aktiv anslutning till internet och starta om appen för att synka.</string>
     
+    <string name="tip_subject_title">Ämne:</string>
+    <string name="tip_subject_prompt">Välj ämne</string>
+    <string-array name="tip_subjects">
+        <item>Temakväll</item>
+        <item>Appen</item>
+        <item>Annat</item>
+    </string-array>
+    <string name="tip_anonymous_title">Anonym</string>
+    <string name="tip_name_title">Namn:</string>
+    <string name="tip_message_title">Meddelande</string>
+    <string name="tip_message_hint">Skriv här</string>
+    <string name="tip_send_button">Skicka</string>
+    <string name="tip_success">Ditt tips skickades och kommer att läsas snart!</string>
+    <string name="tip_failure">Något gick fel då tipset skulle skickas, försök igen!</string>
+    
     <string name="contact_image">Kontaktbild</string>
     <string name="contact_name_default">Kontaktens namn</string>
     <string name="contact_phone_default">Inget tel.nummer</string>

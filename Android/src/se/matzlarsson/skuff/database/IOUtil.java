@@ -6,13 +6,21 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -63,5 +71,39 @@ public class IOUtil {
 		}
 		
 		return bmp;
+	}
+	
+	
+	public static boolean sendDataToServer(String url, String json){
+		try{
+			HttpClient client = new DefaultHttpClient();
+			HttpPost post = new HttpPost(url);
+			List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+			parameters.add(new BasicNameValuePair("device", "Android"));
+			parameters.add(new BasicNameValuePair("json", json));
+			post.setEntity(new UrlEncodedFormEntity(parameters, HTTP.UTF_8));
+			HttpResponse response = client.execute(post);
+			if(response.getStatusLine().getStatusCode()==200){
+				String body = EntityUtils.toString(response.getEntity());
+				String[] data = body.split("#");
+				try{
+					if(Integer.parseInt(data[0])==200){
+						return true;
+					}else{
+						Log.e("Error", "Response:["+body+"]");
+					}
+				}catch(NumberFormatException nfe){
+					Log.e("Error", "Invalid error code from response body");
+				}
+			}else{
+				Log.e("Error", "Invalid response, received code "+response.getStatusLine().getStatusCode());
+			}
+		}catch(UnsupportedEncodingException uee){
+			Log.e("Error", "The encoding of the contest data was corrupt");
+		}catch(Exception e){
+			Log.e("Error", "An error occured while uploading data.");
+		}
+		
+		return false;
 	}
 }
